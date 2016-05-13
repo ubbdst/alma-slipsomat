@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="18.0">
+    <meta>
+        <filters directoryPatterns="" filePatterns="ubb-slipsomat.xpr" positiveFilePatterns="" showHiddenFiles="false"/>
+        <options>
+            <serialized version="18.0" xml:space="preserve">
+                <map>
+                    <entry>
+                        <String>enable.project.master.files.support</String>
+                        <Boolean>true</Boolean>
+                    </entry>
+                </map>
+            </serialized>
+        </options>
+    </meta>
+    <projectTree name="ubb-slipsomat.xpr">
+        <folder masterFiles="true" name="Master Files">
+            <file name="xsl/letters/AnalyticsLetter.xsl"/>
+            <file name="xsl/letters/BorrowerOverdueEmailLetter.xsl"/>
+            <file name="xsl/checksum_calc.xsl"/>
+            <file name="xsl/letters/CollectionContributionLetter.xsl"/>
+            <file name="xsl/letters/CollectionContributionUpdateStatusLetter.xsl"/>
+            <file name="xsl/letters/ConversationLetter.xsl"/>
+            <file name="xsl/letters/EactivationtaskOverdueLetter.xsl"/>
+            <file name="xsl/letters/ExportUserLetter.xsl"/>
+            <file name="xsl/letters/ExternallyObtainedEmailLetter.xsl"/>
+            <file name="xsl/letters/FineFeePaymentReceiptLetter.xsl"/>
+            <file name="xsl/letters/FinesAndFeesReportLetter.xsl"/>
+            <file name="xsl/letters/call_template/footer.xsl"/>
+            <file name="xsl/letters/FulBorrowedByLetter.xsl"/>
+            <file name="xsl/letters/FulBorrowingInfoLetter.xsl"/>
+            <file name="xsl/letters/FulCancelEmailLetter.xsl"/>
+            <file name="xsl/letters/FulCancelRequestLetter.xsl"/>
+            <file name="xsl/letters/FulCitationSlipLetter.xsl"/>
+            <file name="xsl/letters/FulCitationsSlipLetter.xsl"/>
+            <file name="xsl/letters/FulDigitizationNotificationItemLetter.xsl"/>
+            <file name="xsl/letters/FulFinesFeesNotificationLetter.xsl"/>
+            <file name="xsl/letters/FulIncomingSlipLetter.xsl"/>
+            <file name="xsl/letters/FulItemChangeDueDateLetter.xsl"/>
+            <file name="xsl/letters/FulLoanReceiptLetter.xsl"/>
+            <file name="xsl/letters/FulLostLoanLetter.xsl"/>
+            <file name="xsl/letters/FulLostLoanNotificationLetter.xsl"/>
+            <file name="xsl/letters/FulLostRefundFeeLoanLetter.xsl"/>
+            <file name="xsl/letters/FulOutgoingEmailLetter.xsl"/>
+            <file name="xsl/letters/FulOverdueAndLostLoanLetter.xsl"/>
+            <file name="xsl/letters/FulOverdueAndLostLoanNotificationLetter.xsl"/>
+            <file name="xsl/letters/FulPersonalDeliveryLetter.xsl"/>
+            <file name="xsl/letters/FulPickupRequestReportLetter.xsl"/>
+            <file name="xsl/letters/FulPlaceOnHoldShelfLetter.xsl"/>
+            <file name="xsl/letters/FulReasourceRequestSlipLetter.xsl"/>
+            <file name="xsl/letters/FulRenewEmailLetter.xsl"/>
+            <file name="xsl/letters/FulReturnReceiptLetter.xsl"/>
+            <file name="xsl/letters/FulShortLoanLetter.xsl"/>
+            <file name="xsl/letters/FulTransitSlipLetter.xsl"/>
+            <file name="xsl/letters/FulUserBorrowingActivityLetter.xsl"/>
+            <file name="xsl/letters/FulUserLoansCourtesyLetter.xsl"/>
+            <file name="xsl/letters/FulUserOverdueNoticeLetter.xsl"/>
+            <file name="xsl/letters/GeneralAssignToLetter.xsl"/>
+            <file name="xsl/letters/call_template/header.xsl"/>
+            <file name="xsl/letters/InterestedInLetter.xsl"/>
+            <file name="xsl/letters/InterestedUsersInLetter.xsl"/>
+            <file name="xsl/letters/LegalDepositClaimLetter.xsl"/>
+            <file name="xsl/letters/LegalDepositOrderLetter.xsl"/>
+            <file name="xsl/letters/LegalDepositReceiptLetter.xsl"/>
+            <file name="xsl/letters/LegantoNotificationsLetter.xsl"/>
+            <file name="xsl/letters/LendingRecallEmailLetter.xsl"/>
+            <file name="xsl/letters/LendingReqReportSlipLetter.xsl"/>
+            <file name="xsl/letters/call_template/mailReason.xsl"/>
+            <file name="xsl/letters/NotifyUponRenewalLetter.xsl"/>
+            <file name="xsl/letters/OrderListLetter.xsl"/>
+            <file name="xsl/letters/OrderNowLetter.xsl"/>
+            <file name="xsl/letters/OverlapAnalysisLetter.xsl"/>
+            <file name="xsl/letters/OwnerSubscriptionLetter.xsl"/>
+            <file name="xsl/letters/PdaThresholdLetter.xsl"/>
+            <file name="xsl/letters/PINNumberLetter.xsl"/>
+            <file name="xsl/letters/POLineCancellationLetter.xsl"/>
+            <file name="xsl/letters/POLineClaimLetter.xsl"/>
+            <file name="xsl/letters/POLineRenewalLetter.xsl"/>
+            <file name="xsl/letters/ProcessBibExportFinishedLetter.xsl"/>
+            <file name="xsl/letters/PurchaseRequestStatusLetter.xsl"/>
+            <file name="xsl/letters/QueryToPatronLetter.xsl"/>
+            <file name="xsl/letters/QueryToRequesterLetter.xsl"/>
+            <file name="xsl/letters/ReceivingSlipLetter.xsl"/>
+            <file name="xsl/letters/call_template/recordTitle.xsl"/>
+            <file name="xsl/letters/ResendNotificationLetter.xsl"/>
+            <file name="xsl/letters/ResourceSharingShippingSlipLetter.xsl"/>
+            <file name="xsl/letters/RestrictedLoginIPLetter.xsl"/>
+            <file name="xsl/letters/call_template/senderReceiver.xsl"/>
+            <file name="xsl/letters/sms/SmsFulCancelRequestLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulFinesFeesNotificationLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulItemChangeDueDateLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulLostLoanLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulLostLoanNotificationLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulOverdueAndLostLoanLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulPlaceOnHoldShelfLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulUserBorrowingActivityLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulUserLoansCourtesyLetter.xsl"/>
+            <file name="xsl/letters/sms/SmsFulUserOverdueNoticeLetter.xsl"/>
+            <file name="xsl/letters/call_template/smsRecordTitle.xsl"/>
+            <file name="xsl/letters/call_template/style.xsl"/>
+            <file name="xsl/letters/SystemJobLetter.xsl"/>
+            <file name="xsl/letters/TrialLetter.xsl"/>
+            <file name="xsl/letters/UserDeletionLetter.xsl"/>
+            <file name="xsl/letters/UserNotificationsLetter.xsl"/>
+        </folder>
+        <folder path="."/>
+    </projectTree>
+</project>

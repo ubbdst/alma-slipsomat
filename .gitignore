@@ -3,3 +3,5 @@ config.cfg
 .pydevproject
 .settings/
 .python-version
+__pycache__
+

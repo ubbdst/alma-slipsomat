@@ -35,37 +35,32 @@
        @@can_picked_at@@
 
        <xsl:choose>
-        <xsl:when test="notification_data/outgoing/pickup_location_str != ''">
-         <xsl:value-of select="notification_data/outgoing/pickup_location_str"/>
-        </xsl:when>
-        <xsl:when test="notification_data/request/assigned_unit_name != ''">
-         <xsl:value-of select="notification_data/request/assigned_unit_name"/>
+        <xsl:when test="notification_data/request/delivery_address != ''">
+         <xsl:value-of select="notification_data/request/delivery_address"/>
         </xsl:when>
         <xsl:otherwise>
-         <em>(Unknown pickup location. This bug is tracked)</em>
+         <!-- Physical non-returnable -->
+         <xsl:value-of select="notification_data/phys_item_display/owning_library_name"/>
         </xsl:otherwise>
        </xsl:choose>.
       </p>
 
 
-      <!-- Hentenummer -->
+      <!-- ===========================================================
+           START: Hentehylle
+           =========================================================== -->
       <xsl:if test="notification_data/request/work_flow_entity/expiration_date">
-       <p>
-
-        <!-- Fredriks tillegg: Hentenr, konstruert av hentefrist og siste tre siffer i LTID -->
-        <xsl:if test="notification_data/request/calculated_destination_name != 'UiO HumSam-biblioteket - HumSam-biblioteket-Innlån'">
-         <p>
+        <p>
           <b>
-           <xsl:if test="notification_data/receivers/receiver/preferred_language = 'no'">Hentenummer</xsl:if>
-           <xsl:if test="notification_data/receivers/receiver/preferred_language = 'en'">Pick-up number</xsl:if>:
-
-           <xsl:value-of select="substring-before(notification_data/request/work_flow_entity/expiration_date,'/')"/>-<xsl:value-of select="substring(notification_data/user_for_printing/identifiers/code_value/value, string-length(notification_data/user_for_printing/identifiers/code_value/value)-2)"/></b>
-         </p>
-        </xsl:if>
-        <!-- Fredriks tillegg slutt -->
-
-       </p>
+            <xsl:call-template name="pickupNumberWithLabel"/><!-- mailReason.xsl -->
+          </b>
+        </p>
       </xsl:if>
+      <!-- ===========================================================
+           SLUTT: Hentehylle
+           =========================================================== -->
+
+
 
 <!--      <p>
   <xsl:when test="notification_data/outgoing/format_display = 'Physical non-returnable'">
@@ -95,12 +90,6 @@
       <div style="padding-left:1em;">
        <xsl:call-template name="recordTitle"/>
        <!-- recordTitle.xsl -->
-
-       <xsl:if test="notification_data/outgoing/note != ''">
-        <div>
-         Note: <em><xsl:value-of select="notification_data/outgoing/note"/></em>
-        </div>
-       </xsl:if>
       </div>
 
       <xsl:if test="notification_data/request/work_flow_entity/expiration_date != ''">

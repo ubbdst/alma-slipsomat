@@ -1,5 +1,8 @@
 [login]
 domain=uio.no
+instance=bibsys-k
+institution=47BIBSYS_UBO
+auth_type=SAML
 username=
 password=
 

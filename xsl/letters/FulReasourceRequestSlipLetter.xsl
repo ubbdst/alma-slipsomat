@@ -35,29 +35,52 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <table width="100%">
     <tr>
-     <!-- Fredriks tillegg: Hvis på hentehylle: Hentenr, konstruert av hentefrist og tre siste siffer i LTID. Hvis ikke hentehylle, skriv noe annet -->
      <xsl:choose>
+
       <xsl:when test="notification_data/request/work_flow_entity/step_type = 'ON_HOLD_SHELF'">
- 
-       <!-- Hentenummer: -->
-       <xsl:if test="not(contains(notification_data/user_for_printing/identifiers/code_value[1]/value, 'lib'))">
+        <!-- ===========================================================
+             START: Hentehylle
+             =========================================================== -->
         <td>
-         <b><font size="12">
-          <xsl:value-of select="substring-before(notification_data/request/work_flow_entity/expiration_date,'/')"/>-<xsl:value-of select="substring(notification_data/user_for_printing/identifiers/code_value/value, string-length(notification_data/user_for_printing/identifiers/code_value/value)-2)"/>
-         </font></b>
+          <xsl:choose>
+
+            <xsl:when test="notification_data/request/calculated_destination_name = 'UiO HumSam-biblioteket - HumSam-biblioteket-Innlån' or notification_data/request/calculated_destination_name = 'UiO Informatikkbiblioteket - Utlånet Inf' or contains(notification_data/phys_item_display/available_items/available_item/location_name, 'Fjernlån')">
+              <font size="7"><b>
+                <xsl:value-of select="notification_data/user_for_printing/name"/>
+              </b></font>
+            </xsl:when>
+
+            <xsl:when test="contains(notification_data/user_for_printing/identifiers/code_value[1]/value, 'lib')">
+              <!-- Nothing -->
+            </xsl:when>
+
+            <xsl:otherwise>
+
+              <!-- Hentenummer konstruert av hentefrist, siste tre siffer i LTID og to siffer fra selected_inventory_id -->
+              <!-- Merk: html2ps støtter font size > 7, så 12 blir faktisk større enn 7. -->
+              <font size="12"><b>
+                <xsl:call-template name="pickupNumber"/><!-- mailReason.xsl -->
+              </b></font>
+
+            </xsl:otherwise>
+
+          </xsl:choose>
         </td>
-       </xsl:if>
+        <!-- ===========================================================
+             SLUTT: Hentehylle
+             =========================================================== -->
 
       </xsl:when>
+
       <xsl:otherwise>
        <td>
         <h2>
          <xsl:choose>
           <xsl:when test="notification_data/request/work_flow_entity/step_type = 'PICKUP_FROM_SHELF'">
-           Pickup From Shelf
+            Pickup From Shelf
           </xsl:when>
           <xsl:otherwise>
-           Resource Request
+            Resource Request
           </xsl:otherwise>
          </xsl:choose>
         </h2>
@@ -145,20 +168,20 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
       <!-- S3: Grunnleggende metadata: tittel/forfatter m.m. Vises uansett brevtype-->
       <tr>
-       <td><font color="#666666">Title:</font></td>
+       <td>Title:</td>
        <td>
         <xsl:value-of select="notification_data/phys_item_display/title_abcnph"/>
        </td>
       </tr>
       <tr>
-       <td><font color="#666666">By:</font></td>
+       <td>By:</td>
        <td>
         <xsl:value-of select="notification_data/phys_item_display/author"/>
        </td>
       </tr>
       <xsl:if test="notification_data/phys_item_display/isbn != ''">
        <tr>
-        <td><font color="#666666">@@isbn@@:</font></td>
+        <td>@@isbn@@:</td>
         <td>
          <xsl:value-of select="notification_data/phys_item_display/isbn"/>
         </td>
@@ -166,14 +189,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       </xsl:if>
       <xsl:if test="notification_data/phys_item_display/issn != ''">
        <tr>
-        <td><font color="#666666">@@issn@@:</font></td>
+        <td>@@issn@@:</td>
         <td>
          <xsl:value-of select="notification_data/phys_item_display/issn"/>
         </td>
        </tr>
       </xsl:if>
       <tr>
-       <td><font color="#666666">Edition/year:</font></td>
+       <td>Edition/year:</td>
        <td>
         <xsl:value-of select="notification_data/phys_item_display/edition"/>
         <xsl:if test="notification_data/phys_item_display/edition != ''">
@@ -184,7 +207,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       </tr>
       <xsl:if test="notification_data/phys_item_display/issue_level_description != ''">
        <tr>
-        <td><font color="#666666">Issue:</font></td>
+        <td>Issue:</td>
         <td>
          <xsl:value-of select="notification_data/phys_item_display/issue_level_description"/>
         </td>
@@ -192,7 +215,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       </xsl:if>
       <xsl:if test="notification_data/request/record_display_section/series_small != ''" >
        <tr>
-        <td><font color="#666666">Series:</font></td>
+        <td>Series:</td>
         <td>
          <xsl:value-of select="notification_data/request/record_display_section/series_small"/>
         </td>
@@ -201,7 +224,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <xsl:if  test="notification_data/request/manual_description != ''" >
        <tr>
         <td>
-         <em><font color="#666666">Description: </font></em>
+         <em>Description: </em>
         </td>
         <td>
          <b>
@@ -234,7 +257,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
       <!-- Destination, request type, notes -->
       <tr>
-       <td><font color="#666666">@@request_type@@:</font></td>
+       <td>@@request_type@@:</td>
        <td>
         <xsl:value-of select="notification_data/request_type"/>
         (<xsl:value-of select="notification_data/request/request_type"/>)
@@ -243,7 +266,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <xsl:if test="notification_data/user_for_printing/name">
        <tr>
         <td valign="top">
-         <font color="#666666">@@requested_for@@:</font>
+         @@requested_for@@:
         </td>
         <td>
          <xsl:value-of select="notification_data/user_for_printing/identifiers/code_value[1]/value"/>
@@ -269,15 +292,25 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             └──────────────────────────────────────────────────────────────
          -->
          <xsl:if test="notification_data/request/user_group = '4'">
-           (egne ansatte)
+           <h1>(egne ansatte)</h1>
          </xsl:if>
+        </td>
+       </tr>
+      </xsl:if>
+      <xsl:if  test="notification_data/user_for_printing/email != ''" >
+       <tr>
+        <td valign="top">
+         @@email@@:
+        </td>
+        <td>
+         <xsl:value-of select="notification_data/user_for_printing/email"/>
         </td>
        </tr>
       </xsl:if>
       <xsl:if  test="notification_data/external_id != ''" >
        <tr>
         <td valign="top">
-         <font color="#666666">@@external_id@@:</font>
+         @@external_id@@:
         </td>
         <td>
          <xsl:value-of select="notification_data/external_id"/>
@@ -285,14 +318,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
        </tr>
       </xsl:if>
       <tr>
-       <td><font color="#666666">@@move_to_library@@:</font></td>
+       <td>@@move_to_library@@:</td>
        <td>
         <xsl:value-of select="notification_data/destination"/>
        </td>
       </tr>
       <xsl:if test="notification_data/request/system_notes != ''">
        <tr>
-        <td><font color="#666666">@@system_notes@@:</font></td>
+        <td>@@system_notes@@:</td>
         <td>
          <xsl:value-of select="notification_data/request/system_notes"/>
         </td>
@@ -300,8 +333,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       </xsl:if>
       <xsl:if test="notification_data/request/note != ''">
        <tr>
-        <td><font color="#666666"><em>@@request_note@@:</em></font></td>
-        <td bgcolor="#EEEEEE">
+        <td><em>@@request_note@@:</em></td>
+        <td>
          <b>
           <xsl:value-of select="notification_data/request/note"/>
          </b>
@@ -317,104 +350,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <!-- Physical location: Hvor man finner den der boka... -->
       <!-- Informasjonen er av og til misvisende. Det virker som den viser holding boka er bestilt på, uavhengig av hvilken holding som faktisk har ledige items. Eks: Bok bestilt på pensum, men ledig i boksamling - viser fortsatt pensum.. Så det virker 
       bedre å baserer seg på available_items  (under). Litt usikker på om vi burde ha en test på aksede bøker og andre spesialtilfeller...
-       <tr>
-        <td>
-         <font color="#666666">Location (requested):</font>
-        </td>
-        <td bgcolor="#EEEEEE">
-         <xsl:value-of select="notification_data/phys_item_display/location_name"/>
-         <xsl:if test="notification_data/phys_item_display/call_number != ''">
-          &#160;<xsl:value-of select="notification_data/phys_item_display/call_number"/>
-         </xsl:if>
-         <xsl:if test="notification_data/phys_item_display/accession_number != ''">
-          &#160; - @@accession_number@@:
-          <xsl:value-of select="notification_data/phys_item_display/accession_number"/>
-         </xsl:if>
-        </td>
-       </tr>
-       <xsl:if test="notification_data/phys_item_display/shelving_location/string" >
-        <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
-         <tr>
-          <td>
-           <font color="#666666">@@shelving_location_for_item@@: </font>
-          </td>
-          <td>
-           <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
-            <xsl:value-of select="."/>
-             &#160;
-            </xsl:for-each>
-          </td>
-         </tr>
-        </xsl:if>
-        <xsl:if test="notification_data/request/selected_inventory_type='HOLDING'" >
-         <tr>
-          <td>
-           <font color="#666666">@@shelving_locations_for_holding@@: </font>
-          </td>
-          <td>
-           <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
-            <xsl:value-of select="."/>
-            &#160;
-            </xsl:for-each>
-          </td>
-         </tr>
-        </xsl:if>
-        <xsl:if test="notification_data/request/selected_inventory_type='VIRTUAL_HOLDING'" >
-         <tr>
-          <td>
-           <font color="#666666">@@shelving_locations_for_holding@@: </font>
-          </td>
-          <td>
-           <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
-            <xsl:value-of select="."/>
-            &#160;
-            </xsl:for-each>
-          </td>
-         </tr>
-        </xsl:if>
-       </xsl:if>
-       <xsl:if test="notification_data/phys_item_display/display_alt_call_numbers/string" >
-        <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
-         <tr>
-          <td>
-           <font color="#666666">@@alt_call_number@@: </font>
-          </td>
-          <td>
-           <xsl:for-each select="notification_data/phys_item_display/display_alt_call_numbers/string">
-            <xsl:value-of select="."/>
-             &#160;
-            </xsl:for-each>
-          </td>
-         </tr>
-        </xsl:if>
-        <xsl:if test="notification_data/request/selected_inventory_type='HOLDING'" >
-        <tr>
-         <td>
-          <font color="#666666">@@alt_call_number@@: </font>
-         </td>
-         <td>
-          <xsl:for-each select="notification_data/phys_item_display/display_alt_call_numbers/string">
-           <xsl:value-of select="."/>
-           &#160;
-           </xsl:for-each>
-         </td>
-        </tr>
-        </xsl:if>
-        <xsl:if test="notification_data/request/selected_inventory_type='VIRTUAL_HOLDING'" >
-        <tr>
-         <td>
-          <font color="#666666">@@alt_call_number@@: </font>
-         </td>
-         <td>
-          <xsl:for-each select="notification_data/phys_item_display/display_alt_call_numbers/string">
-           <xsl:value-of select="."/>
-           &#160;
-           </xsl:for-each>
-         </td>
-        </tr>
-        </xsl:if>
-       </xsl:if>
-       -->
+      -->
 
       <!-- ITEM -->
       <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
@@ -452,7 +388,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
        </xsl:if>
 
        <!-- DMOH 2016-01-04: Viser barcode for available items -->
-       <xsl:if test="notification_data/request/selected_inventory_type='HOLDING'" >
+       <xsl:if test="notification_data/request/selected_inventory_type='HOLDING' or notification_data/request/selected_inventory_type='VIRTUAL_HOLDING'" >
         <xsl:if test="count(notification_data/phys_item_display/available_items/available_item[library_code=/notification_data/organization_unit/code]) != 0">
          <p>
           Available item(s):
@@ -510,13 +446,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
       <!-- ALERT1: Dokumentet skal sendes til folkebibliotek. Denne seddelen fungerer som sendeseddel. -->
       <xsl:if test="contains(notification_data/user_for_printing/identifiers/code_value[1]/value, 'lib')">
-       <p>
         <hr/>
+        <h4>Bestilling fra bibliotek utenfor Bibsys</h4>
+       <p>
         <strong>
-          Merk:
+          Neste steg:
         </strong>
         <em>
-          Mottaker er et bibliotek. Bruk "Scan In" for å låne ut dokumentet.
+          Dokumentet skal til et bibliotek utenfor Bibsys. Bruk "Scan In" for å låne ut dokumentet.
           Som sendeseddel brukes denne seddelen.
         </em>
         <hr/>
@@ -526,14 +463,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
       <!-- ALERT2: Dokumentet skal sendes til bestillende bibliotek (lending request). Denne seddelen fungerer ikke som sendeseddel. -->
       <xsl:if test="notification_data/request/request_type = 'RESOURCE_SHARING_PHYSICAL_SHIPMENT'">
-       <p>
         <hr/>
+        <h4>Bestilling fra annet Bibsys-bibliotek</h4>
+       <p>
         <strong>
-          Merk:
+          Neste steg:
         </strong>
         <em>
-          Dokumentet skal til et annet Bibsys-bibliotek. Bruk derfor "Shipping Items", ikke "Scan In".
-          Husk å krysse av for at du vil ha sendeseddel ("Automatically print slip").
+          Bruk "Shipping Items" for å få sendeseddel. Husk å krysse av for "Automatically print slip".
         </em>
         <hr/>
        </p>
@@ -545,86 +482,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     </div>
    </div>
-
-
-  <!-- SKRIPTOTEKETS TILLEGG -->
-  <!--
-  <xsl:if test="notification_data/request/work_flow_entity/step_type != 'ON_HOLD_SHELF'">
-   <b><font size="120">
-   <xsl:for-each select="notification_data">
-                 <xsl:if test="destination='UiO Arkeologisk bibliotek'">
-       103 &#160; 0011
-     </xsl:if>
-     <xsl:if test="destination='UiO Etnografisk bibliotek'">
-       103 &#160; 0010
-     </xsl:if>
-     <xsl:if test="destination='UiO HumSam-biblioteket'">
-       103 &#160; 0300
-     </xsl:if>
-     <xsl:if test="destination='UiO Ibsensenterets bibliotek'">
-       103 &#160; 0104
-     </xsl:if>
-     <xsl:if test="destination='UiO Informatikkbiblioteket'">
-       103 &#160; 0317
-     </xsl:if>
-     <xsl:if test="destination='UiO Juridisk bibliotek DB'">
-       103 &#160; 0000
-     </xsl:if>
-     <xsl:if test="destination='UiO Kriminologibiblioteket'">
-       103 &#160; 0002
-     </xsl:if>
-     <xsl:if test="destination='UiO Læringssenteret DN'">
-       103 &#160; 0009
-     </xsl:if>
-     <xsl:if test="destination='UiO Medisinsk bibliotek'">
-       103 &#160; 2300
-     </xsl:if>
-     <xsl:if test="destination='UiO Menneskerettighetsbiblioteket'">
-       103 &#160; 0048
-     </xsl:if>
-     <xsl:if test="destination='UiO NSSF Selvmordsforskning/forebygging'">
-       103 &#160; 2304
-     </xsl:if>
-     <xsl:if test="destination='UiO Naturhistorisk museum biblioteket'">
-       103 &#160; 0500
-     </xsl:if>
-     <xsl:if test="destination='UiO Odontologisk bibliotek'">
-       103 &#160; 0307
-     </xsl:if>
-     <xsl:if test="destination='UiO Offentligrettsbiblioteket'">
-       103 &#160; 0003
-     </xsl:if>
-     <xsl:if test="destination='UiO Petroleums- og EU-rettsbiblioteket'">
-       103 &#160; 0005
-     </xsl:if>
-     <xsl:if test="destination='UiO Privatrettsbiblioteket'">
-       103 &#160; 0001
-     </xsl:if>
-     <xsl:if test="destination='UiO Realfagsbiblioteket'">
-       103 &#160; 0310
-     </xsl:if>
-     <xsl:if test="destination='UiO Rettshistorisk samling'">
-       103 &#160; 0015
-     </xsl:if>
-     <xsl:if test="destination='UiO Rettsinformatikkbiblioteket'">
-       103 &#160; 0004
-     </xsl:if>
-     <xsl:if test="destination='UiO Sjørettsbiblioteket'">
-       103 &#160; 0006
-     </xsl:if>
-     <xsl:if test="destination='UiO Sophus Bugge'">
-       103 &#160; 0303
-     </xsl:if>
-     <xsl:if test="destination='UiO Teologisk bibliotek'">
-       103 &#160; 0301
-     </xsl:if>
-    </xsl:for-each>
-    </font>
-   </b>
-  </xsl:if>
- -->
-<!-- SKRIPTOTEKETS TILLEGG SLUTT -->
-
 
 
    <!-- Footer til hentehyllelapp -->

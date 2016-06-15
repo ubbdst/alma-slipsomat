@@ -28,12 +28,11 @@
          @@we_sent@@
          <b>
           <xsl:value-of select="notification_data/request/create_date" />
-         </b>
-         .
+         </b>.
         </td>
        </tr>
        <tr>
-        <td>@@following_details@@ : </td>
+        <td>@@following_details@@: </td>
        </tr>
        <tr>
         <td>
@@ -43,25 +42,33 @@
 
        <tr>
         <td>
-         <b>@@delivered_to@@ : </b>
+         <b>@@delivered_to@@: </b>
          <xsl:value-of select="notification_data/delivery_address" />
         </td>
        </tr>
 
        <tr>
         <td>
-         <b>@@due_date@@ : </b>
+         <b>@@due_date@@: </b>
          <xsl:value-of select="notification_data/due_date" />
         </td>
        </tr>
       </table>
       <br />
+      <table>
+
+       <tr>
+        <td>@@sincerely@@</td>
+       </tr>
+       <tr>
+        <td>@@department@@</td>
+       </tr>
+
+      </table>
      </div>
     </div>
-
     <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
     <xsl:call-template name="contactUs" />
-
    </body>
   </html>
  </xsl:template>

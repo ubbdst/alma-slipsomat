@@ -41,6 +41,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <b>@@message@@</b>
      </xsl:if>
      <xsl:if test="notification_data/message='RECALL_CANCEL_RESTORE_ORIGINAL_DUEDATE'">
+                                       <xsl:message terminate="yes">ikke send ut brev for denne handlingen</xsl:message>
       <b>@@cancel_recall_date_change@@</b>
      </xsl:if>
      <xsl:if test="notification_data/message='RECALL_CANCEL_ITEM_RENEWED'">
@@ -90,12 +91,18 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 </td>
               </tr>
              </table>
+
+   <br />
+   <table>
+    <tr><td>@@sincerely@@</td></tr>
+    <tr><td>@@department@@</td></tr>
+   </table>
+
           </div>
         </div>
 
     <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-    <xsl:call-template name="contactUs" /> <!-- footer.xsl -->
-
+    <xsl:call-template name="contactUs" />
    </body>
  </html>
 </xsl:template>

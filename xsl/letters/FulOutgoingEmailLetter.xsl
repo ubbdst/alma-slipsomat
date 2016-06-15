@@ -374,12 +374,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         </td>
        </tr>
        <xsl:if test="notification_data/library/address/line1 !=''">
-        <tr>
+        <!--Uheldig med gateadresse til våre fjernlånspartnere. ES 16052016<tr>
          <td>
           <xsl:value-of select="notification_data/library/address/line1" />
          </td>
         </tr>
-       </xsl:if>
+       --></xsl:if>
        <xsl:if test="notification_data/library/address/line2 !=''">
         <tr>
          <td>
@@ -408,13 +408,17 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
          </td>
         </tr>
        </xsl:if>
-       <xsl:if test="notification_data/library/address/city !=''">
-        <tr>
-         <td>
-          <xsl:value-of select="notification_data/library/address/postal_code" />&#160;<xsl:value-of select="notification_data/library/address/city" />
-         </td>
-        </tr>
-       </xsl:if>
+       <tr>
+<td>
+<xsl:if test="notification_data/library/address/postal_code !=''">
+<xsl:value-of select="notification_data/library/address/postal_code" />
+<xsl:text> </xsl:text>
+</xsl:if>
+<xsl:if test="notification_data/library/address/city !=''">
+<xsl:value-of select="notification_data/library/address/city" />
+</xsl:if>
+</td>
+</tr>
        <xsl:if test="notification_data/library/address/country !=''">
         <tr>
          <td>

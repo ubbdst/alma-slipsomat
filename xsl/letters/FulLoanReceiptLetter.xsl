@@ -19,55 +19,76 @@
         </xsl:attribute>
 
         <xsl:call-template name="head" /><!-- header.xsl -->
+        <xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 
-        <!--
-        <xsl:call-template name="senderReceiver" />--> <!-- SenderReceiver.xsl -->
-    <!--<br />-->
-
-    <div class="messageArea">
+  <br />
+  <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
+  <div class="messageArea">
         <div class="messageBody">
 
-      <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 
-          <p>
-            @@inform_loaned_items@@ <xsl:value-of select="notification_data/organization_unit/name" />:
-          </p>
+         <table cellspacing="0" cellpadding="5" border="0">
+    <tr>
+    <td>
+     <h>@@inform_loaned_items@@ <xsl:value-of select="notification_data/organization_unit/name" />&#44;&#160;<xsl:value-of select="notification_data/circ_desk_name"/></h>
+    </td>
+    </tr>
 
-          <table cellpadding="5" class="listing">
+    <tr>
+               <td>
+     <b>@@loans@@</b>
+                </td>
+               </tr>
+
+               <xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
+     <tr>
+      <td>
+       <table cellpadding="5" class="listing">
         <xsl:attribute name="style">
-          <xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
+         <xsl:call-template name="mainTableStyleCss" />
         </xsl:attribute>
+        <tr align="center" bgcolor="#f5f5f5">
+         <td colspan="6">
+          <h3><xsl:value-of select="organization_unit/name" /></h3>
+         </td>
+        </tr>
         <tr>
-          <th>@@title@@</th>
-          <th>@@loan_date@@</th>
-          <th>@@due_date@@</th>
-          <th>@@description@@</th>
+         <th>@@title@@</th>
+         <th>@@author@@</th>
+         <th>@@loan_date@@</th>
+         <th>@@due_date@@</th>
+         <th>@@library@@</th>
+         <th>@@description@@</th>
         </tr>
 
-            <xsl:for-each select="notification_data/items/item_loan">
-        <tr>
+        <xsl:for-each select="item_loans/overdue_and_lost_loan_notification_display/item_loan">
+         <tr>
           <td><xsl:value-of select="title"/></td>
-          <td>
-            <xsl:call-template name="normalizedDate"><!-- header.xsl -->
-              <xsl:with-param name="value" select="loan_date"/>
-            </xsl:call-template>
-          </td>
-          <td>
-            <xsl:call-template name="normalizedDate"><!-- header.xsl -->
-              <xsl:with-param name="value" select="new_due_date_str"/>
-            </xsl:call-template>
-          </td>
+          <td><xsl:value-of select="author"/></td>
+          <td><xsl:value-of select="loan_date"/></td>
+          <td><xsl:value-of select="new_due_date_str"/></td>
+          <td><xsl:value-of select="library_name"/></td>
           <td><xsl:value-of select="description"/></td>
-        </tr>
+         </tr>
         </xsl:for-each>
+       </table>
+      </td>
+     </tr>
+     <hr/><br/>
+    </xsl:for-each>
+    <br />
+    <br />
+   </table>
 
-          </table>
+   <table>
+    <tr><td>@@sincerely@@</td></tr>
+    <tr><td>@@department@@</td></tr>
+   </table>
 
+     </div>
         </div>
-        </div>
-
-        <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-
+        <!-- footer.xsl -->
+        <xsl:call-template name="lastFooter" />
       </body>
     </html>
   </xsl:template>

@@ -14,34 +14,36 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <head>
   <xsl:call-template name="generalStyle" />
   </head>
+
    <body>
    <xsl:attribute name="style">
     <xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
    </xsl:attribute>
 
-    <div class="messageArea">
-      <div class="messageBody">
+    <xsl:call-template name="head" /> <!-- header.xsl -->
+    <xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 
-        <xsl:call-template name="toWhomIsConcerned"/>
-    
-        <xsl:for-each select="notification_data/conversation_messages/message">
-          <p>
-            <xsl:value-of select="message_subject"/>
-          </p>
-          <p>
-            <xsl:value-of select="message_body" disable-output-escaping="yes"/>
-          </p>
+    <br />
+    <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
+    <table cellspacing="0" cellpadding="5" border="0">
+     <tr>
+      <td>
+    <xsl:for-each select="notification_data/conversation_messages/message">
+    <xsl:value-of select="message_subject"/>
+      <br /><xsl:value-of select="message_body" disable-output-escaping="yes"/>
+      <br />
+    </xsl:for-each>
+     </td>
+     </tr>
 
-        <p>
-          @@sincerely@@,<br />
-          <xsl:value-of select="author/first_name" />&#160;<xsl:value-of select="author/last_name" /><br />
-          <xsl:value-of select="/notification_data/organization_unit/name" />
-        </p>             </xsl:for-each>
- 
+    </table>
+    <br />
+    <table>
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
+    </table>
 
-      </div>
-    </div>
-     
+    <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
    </body>
  </html>
 </xsl:template>

@@ -25,7 +25,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <br />
     <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-    <p>@@following_loaned_item_which_has@@</p>
+    <h>@@following_loaned_item_which_has@@</h>
 
     <table cellpadding="5" class="listing">
     <xsl:attribute name="style">
@@ -37,10 +37,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <tr>
       <td><b>@@title@@: </b> <xsl:value-of select="item_loan/title"/>
       <br />
+      <b>@@loan_details@@: </b><xsl:value-of select="item_loan/description"/>
+      <br />
+      <b>@@author@@: </b><xsl:value-of select="item_loan/author"/>
+      <br />
+      <b>@@library@@ :</b><xsl:value-of select="organization_unit/name"/>
+      <br />
       <b>@@loan_date@@ :</b><xsl:value-of select="item_loan/loan_date"/>
       <br />
       <b>@@due_date@@ :</b><xsl:value-of select="item_loan/due_date"/>
       <br />
+      <b>@@your_account_balance_will_be_credited@@: </b>
+      <br />
+      @@bellow_details_charges_credits_due@@
       </td>
      </tr>
 
@@ -73,7 +82,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     </table>
     </table>
-   
+    <br />
+    <table>
+
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
+
+    </table>
 
     <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
     <xsl:call-template name="contactUs" />

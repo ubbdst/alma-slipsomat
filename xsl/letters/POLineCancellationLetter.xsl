@@ -27,6 +27,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:call-template name="senderReceiver" />
         <!-- SenderReceiver.xsl -->
 
+  <h4>@@vendor_name@@: <xsl:value-of select="/notification_data/vendor/name"/></h4>
         <div class="messageArea">
           <div class="messageBody">
             <table cellspacing="0" cellpadding="5" border="0">
@@ -42,11 +43,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <br />
      <b>@@cancellation_reason@@: </b><xsl:value-of select="notification_data/line/cancellation_reason" />
      <br />
+     <br />
      </td>
     </tr>
    </table>
           </div>
         </div>
+  <br />
+    <table>
+
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
+
+    </table>
   <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
       </body>
     </html>

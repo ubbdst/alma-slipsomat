@@ -38,30 +38,20 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:for-each select="notification_data">
     <table>
      <tr>
-      <td><b>@@shipping_address@@: </b><xsl:value-of select="/notification_data/po/ship_to_address/line1"/>, &#160;<xsl:value-of select="/notification_data/po/ship_to_address/postal_code"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/city"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/country"/></td>
+      <td><b>@@order_date@@: </b> <xsl:value-of select="/notification_data/po/create_date"/></td>
      </tr>
      <tr>
-      <td><b>@@billing_address@@: </b><xsl:value-of select="/notification_data/po/bill_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/line2"/>, &#160;<xsl:value-of select="/notification_data/po/bill_to_address/postal_code"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/city"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/country"/></td>
+      <td><b>@@vendor_account@@: </b><xsl:value-of select="/notification_data/po/vendor_account/description"/></td>
      </tr>
-     
-     <xsl:if test="/notification_data/po/shipping_method != ''">
+     <tr>
+      <td><b>@@shipping_address@@: </b><xsl:value-of select="/notification_data/po/ship_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/line2"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/city"/>&#160;<xsl:value-of select="/notification_data/po/ship_to_address/country"/></td>
+     </tr>
      <tr>
       <td><b>@@shipping_method@@: </b><xsl:value-of select="/notification_data/po/shipping_method"/></td>
      </tr>
-     </xsl:if>
-     
-     <xsl:if test="/notification_data/po/po_line_list/po_line/vendor_reference_number != ''">
      <tr>
-      <td><b>Your reference: </b><xsl:value-of select="/notification_data/po/po_line_list/po_line/vendor_reference_number"/></td>
+      <td><b>@@billing_address@@: </b><xsl:value-of select="/notification_data/po/bill_to_address/line1"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/line2"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/city"/>&#160;<xsl:value-of select="/notification_data/po/bill_to_address/country"/></td>
      </tr>
-     </xsl:if>
-     
-     <xsl:if test="/notification_data/po/po_line_list/po_line/rush = 'true'">
-     <tr>
-      <td><b>Rush</b></td>
-     </tr>
-      </xsl:if>
-     
     </table>
     </xsl:for-each>
     <br />
@@ -73,6 +63,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     </xsl:attribute>
      <tr>
       <th>@@po_line_number@@</th>
+      <th>@@date@@</th>
       <th>@@issn_isbn@@</th>
       <th>@@title@@</th>
       <th>@@quantity@@</th>
@@ -82,6 +73,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <xsl:for-each select="notification_data/po/po_line_list/po_line">
      <tr>
       <td><xsl:value-of select="line_reference"/></td>
+      <td><xsl:value-of select="create_date"/></td>
       <td><xsl:value-of select="identifier_type"/>&#160;<xsl:value-of select="identifier"/></td>
       <td><xsl:value-of select="meta_data_values/title"/></td>
       <td><xsl:value-of select="total_quantity"/></td>
@@ -91,6 +83,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      </xsl:for-each>
     </table>
     <br />
+    <table>
+
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
+
+    </table>
+
 
     <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
    </body>

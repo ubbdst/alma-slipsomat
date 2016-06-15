@@ -65,7 +65,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
    </table>
           </div>
         </div>
-  
+  <br />
+    <table>
+
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
+
+    </table>
   <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
       </body>
     </html>

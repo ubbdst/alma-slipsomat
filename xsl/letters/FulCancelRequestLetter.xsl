@@ -10,84 +10,59 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
  <html>
   <head>
-   <xsl:call-template name="generalStyle" />
+  <xsl:call-template name="generalStyle" />
   </head>
-  <body>
+   <body>
+
 <xsl:if test="/notification_data/request/resource_sharing_request_id != ''">
-   <xsl:message terminate="yes">Resource Sharing Request - No automatic cancellation letter sent</xsl:message>
-</xsl:if>
-<xsl:if test="/notification_data/request/convertable_to_resource_sharing = 'true'">
-   <xsl:message terminate="yes">Converted to resoruce sharing, no need for cancel message.</xsl:message>
+                 <xsl:message terminate="yes">Resource Sharing Request - No automatic cancellation letter sent</xsl:message>
 </xsl:if>
    <xsl:attribute name="style">
     <xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
    </xsl:attribute>
+    <xsl:call-template name="head" /> <!-- header.xsl -->
+    <xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
+    <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 
-   <xsl:call-template name="head" /> <!-- header.xsl -->
-
-   <div class="messageArea">
+  <div class="messageArea">
     <div class="messageBody">
+      <table cellspacing="0" cellpadding="5" border="0">
+      <tr>
+       <td>@@we_cancel_y_req_of@@ <xsl:value-of select="notification_data/request/create_date"/>:</td></tr>
+      <tr>
+       <td><xsl:call-template name="recordTitle" /> <!-- recordTitle.xsl --></td>
+      </tr>
+      <xsl:if test="notification_data/request/note != ''">
+       <tr>
+        <td><b> @@request_note@@: </b> <xsl:value-of select="notification_data/request/note"/></td>
+       </tr>
+      </xsl:if>
+      <tr>
+       <td><b> @@reason_deleting_request@@: </b> <xsl:value-of select="notification_data/request/status_note_display"/></td>
+      </tr>
+      <xsl:if test="notification_data/request/system_notes != ''">
+       <tr>
+        <td><b> @@request_cancellation_note@@: </b> <xsl:value-of select="notification_data/request/system_notes"/></td>
+       </tr>
 
-     <xsl:call-template name="toWhomIsConcerned"/>
-     <!-- mailReason.xsl -->
+      </xsl:if>
+<br />
+<br />
+<xsl:text>Ta kontakt med ditt bibliotek hvis du har spørsmål til dette. Du finner kontaktinformasjon via lenken nederst.</xsl:text>
+<br />
+<xsl:text>If you have any questions, please contact your library. Contact information can be found via the link below.</xsl:text>
+     </table>
+     <br />
+    <table>
 
-     <p>
-      @@we_cancel_y_req_of@@ <xsl:value-of select="notification_data/request/create_date"/> @@detailed_below@@.
-     </p>
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
 
-     <ul>
-      <li>
-       <xsl:value-of select="notification_data/phys_item_display/author"/>:
-       <xsl:value-of select="notification_data/phys_item_display/title"/> (<xsl:value-of select="notification_data/phys_item_display/edition"/><xsl:if test="notification_data/phys_item_display/edition != ''">&#160;</xsl:if><xsl:value-of select="notification_data/phys_item_display/publication_date"/>)
-
-       <!-- <xsl:call-template name="recordTitle" />--><!-- recordTitle.xsl -->
-      </li> 
-     </ul>
-
-     <p>
-      <xsl:choose>
-       <xsl:when test="notification_data/request/status_note = 'RequestedMaterialCannotBeLocated'">
-        <em>
-         <xsl:choose>
-          <xsl:when test="notification_data/receivers/receiver/preferred_language = 'en'">
-           Unfortunately the document could not be found at the shelf.
-           It's still possible that there are copies in other libraries in Norway or elsewhere
-           that we can borrow for you (free of charge).
-           Please contact us using the email adress below if you want us to check this.
-          </xsl:when>
-          <xsl:otherwise>
-           Dokumentet ble dessverre ikke funnet på hylla.
-           Det kan imidlertid være det finnes eksemplarer ved andre bibliotek i Norge eller
-           utlandet som vi kan få lånt inn.
-           Kontakt oss på epostadressen under hvis du ønsker at vi skal sjekke dette for deg.
-          </xsl:otherwise>
-         </xsl:choose>
-        </em>
-       </xsl:when>
-       <xsl:otherwise>
-        @@reason_deleting_request@@:
-        <em><xsl:value-of select="notification_data/request/status_note_display"/></em>
-       </xsl:otherwise>
-      </xsl:choose>
-     </p>
-
-     <xsl:if test="notification_data/request/note != ''">
-      <p>
-       @@request_note@@:
-       <xsl:value-of select="notification_data/request/note"/>
-      </p>
-     </xsl:if>
-
-     <xsl:if test="notification_data/request/system_notes != ''">
-      <p>
-       @@request_cancellation_note@@: <xsl:value-of select="notification_data/request/system_notes"/>
-      </p>
-     </xsl:if>
-
+    </table>
     </div>
    </div>
-   <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-   <!--<xsl:call-template name="contactUs" />-->
+    <!-- footer.xsl -->
+   <xsl:call-template name="contactUs" />
   </body>
  </html>
  </xsl:template>

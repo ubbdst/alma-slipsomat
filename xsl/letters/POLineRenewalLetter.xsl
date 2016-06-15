@@ -36,19 +36,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
      <br /><b>@@order_number@@:</b><xsl:value-of select="notification_data/line/reference_number" />
      <br /><b>@@order_date@@: </b><xsl:value-of select="notification_data/line/send_date" />
      <br /><b>@@from_date@@:</b><xsl:value-of select="notification_data/line/renewal_date" />
-     <xsl:if test="/notification_data/po/po_line_list/po_line/vendor_reference_number != ''">
-     <br />
-     <tr>
-      <td><b>Your reference: </b><xsl:value-of select="/notification_data/po/po_line_list/po_line/vendor_reference_number"/></td>
-     </tr>
-     </xsl:if>
      </td>
     </tr>
 
    </table>
           </div>
         </div>
+  <br />
+    <table>
 
+      <tr><td>@@sincerely@@</td></tr>
+      <tr><td>@@department@@</td></tr>
+
+    </table>
   <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
       </body>
     </html>

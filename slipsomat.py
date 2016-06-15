@@ -96,7 +96,7 @@ def login():
     else:
         raise Exception('Unsupported/unknown browser')
 
-    driver.get('https://bibsys-k.alma.exlibrisgroup.com/mng/login?auth=SAML')
+    driver.get('https://idp.feide.no/simplesaml/module.php/feide/login.php?asLen=226&AuthState=_af274793653f9049ef6db6440cce6f2fa754724f50%3Ahttps%3A%2F%2Fidp.feide.no%2Fsimplesaml%2Fsaml2%2Fidp%2FSSOService.php%3Fspentityid%3Dhttps%253A%252F%252Fbibsys-d.alma.exlibrisgroup.com%252Fmng%252Flogin%26cookieTime%3D1465993405%26RelayState%3Dmng%2540%254047BIBSYS_UBB')
 
     try:
         element = driver.find_element_by_id("org")

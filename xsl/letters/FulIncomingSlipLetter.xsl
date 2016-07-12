@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:variable name="counter" select="0"/>
-  <xsl:include href="header.xsl"/>
-  <xsl:include href="senderReceiver.xsl"/>
-  <xsl:include href="mailReason.xsl"/>
-  <xsl:include href="footer.xsl"/>
-  <xsl:include href="style.xsl"/>
-  <xsl:include href="recordTitle.xsl"/>
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:variable name="counter" select="0"/>
+<xsl:include href="header.xsl"/>
+<xsl:include href="senderReceiver.xsl"/>
+<xsl:include href="mailReason.xsl"/>
+<xsl:include href="footer.xsl"/>
+<xsl:include href="style.xsl"/>
+<xsl:include href="recordTitle.xsl"/>
 
   <xsl:template name="id-info">
     <xsl:param name="line"/>
@@ -44,7 +45,7 @@
           <!-- style.xsl -->
         </xsl:attribute>
 
-        <xsl:call-template name="head_without_logo"/><!-- Defined in header.xsl -->
+        <xsl:call-template name="headWithoutLogo"/><!-- Defined in mailReason.xsl -->
 
         <div class="messageArea">
           <div class="messageBody">
@@ -78,12 +79,12 @@
                 <tr>
                   <td>Request created:</td>
                   <td>
-                    <xsl:call-template name="normalizedDate"><!-- Defined in header.xsl -->
+                    <xsl:call-template name="stdDate"><!-- Defined in mailReason.xsl -->
                       <xsl:with-param name="value" select="notification_data/incoming_request/create_date_str"/>
                     </xsl:call-template>
                     <xsl:if test="notification_data/incoming_request/create_date_str != notification_data/incoming_request/modification_date_str">&#160;(updated
-                      <xsl:call-template name="normalizedDate">
-                        <!-- header.xsl -->
+                      <xsl:call-template name="stdDate">
+                        <!-- mailReason.xsl -->
                         <xsl:with-param name="value" select="notification_data/incoming_request/modification_date_str"/></xsl:call-template>)
                     </xsl:if>
                   </td>

@@ -29,30 +29,38 @@
    <xsl:with-param name="label" select="'Bibliographic Information:'"/>
   </xsl:call-template>
  </xsl:template>
- <xsl:template match="/">
-  <html>
-   <head>
+
+<xsl:template match="/">
+<html>
+  <head>
     <xsl:call-template name="generalStyle"/>
 
+    <!-- =====================================================================================
+      Libnummer
+
+      Alternativ 1: UiO-løsning: Vi legger dette i en meta-tagg,
+      som en instruksjon til html2ps om å skrive den ut i footer.
+
+      Se https://github.com/scriptotek/alma-slipsomat#libnummer-norsk-isil-kode
+      ===================================================================================== -->
+
     <xsl:element name="meta">
-     <xsl:attribute name="name">libnummer</xsl:attribute>
-     <xsl:attribute name="content">
-
-      <xsl:for-each select="notification_data/partner_shipping_info_list/partner_shipping_info[1]/address5">
-              <xsl:value-of select="substring(., 4,3)"/>&#160;&#160;<xsl:value-of select="substring(., 7,4)"/>
-      </xsl:for-each>
-
-          </xsl:attribute>
+      <xsl:attribute name="name">libnummer</xsl:attribute>
+      <xsl:attribute name="content">
+        <xsl:for-each select="/notification_data/partner_shipping_info_list/partner_shipping_info[1]/address5">
+          <xsl:value-of select="substring(., 4,3)"/>&#160;&#160;<xsl:value-of select="substring(., 7,4)"/>
+        </xsl:for-each>
+      </xsl:attribute>
     </xsl:element>
+    <!-- ===================================================================================== -->
 
-   </head>
+  </head>
    <body>
     <xsl:attribute name="style">
      <xsl:call-template name="bodyStyleCss"/>
      <!-- style.xsl -->
     </xsl:attribute>
-    <xsl:call-template name="head_without_logo"/>
-    <!-- header.xsl -->
+    <xsl:call-template name="headWithoutLogo"/><!-- Defined in mailReason.xsl -->
     <div class="messageArea">
      <div class="messageBody">
 
@@ -168,12 +176,12 @@
         <tr>
          <td>Request created:</td>
          <td>
-             <xsl:call-template name="normalizedDate"><!-- header.xsl -->
+             <xsl:call-template name="isoDate"><!-- mailReason.xsl -->
                      <xsl:with-param name="value" select="notification_data/incoming_request/create_date_str"/>
                    </xsl:call-template>
 
           <xsl:if test="notification_data/incoming_request/create_date_str != notification_data/incoming_request/modification_date_str">
-           &#160;(updated <xsl:call-template name="normalizedDate"><!-- header.xsl -->
+           &#160;(updated <xsl:call-template name="isoDate"><!-- mailReason.xsl -->
                       <xsl:with-param name="value" select="notification_data/incoming_request/modification_date_str"/>
                     </xsl:call-template>)
           </xsl:if>
@@ -194,7 +202,7 @@
         <tr>
          <td>Item sent:</td>
          <td>
-             <xsl:call-template name="normalizedDate"><!-- header.xsl -->
+             <xsl:call-template name="isoDate"><!-- mailReason.xsl -->
                      <xsl:with-param name="value" select="notification_data/incoming_request/item_sent_date"/>
                    </xsl:call-template>
 
@@ -384,9 +392,22 @@
      </div>
     </div>
 
-    <!--
-  <xsl:call-template name="lastFooter" />-->
-    <!-- footer.xsl -->
+    <!-- =====================================================================================
+          Libnummer
+
+          Alternativ 2: CSS-basert løsning for de som ikke bruker html2ps
+
+          Se https://github.com/scriptotek/alma-slipsomat#libnummer-norsk-isil-kode
+          ===================================================================================== -->
+    <xsl:if test="/notification_data/organization_unit/org_scope/institution_id != '2204'">
+      <div id="libnummer" style="position: fixed; bottom: 100px; left: 30px; font-size: 60px;">
+        <xsl:for-each select="/notification_data/partner_shipping_info_list/partner_shipping_info[1]/address5">
+          <xsl:value-of select="substring(., 4,3)"/>&#160;&#160;<xsl:value-of select="substring(., 7,4)"/>
+        </xsl:for-each>
+      </div>
+    </xsl:if>
+    <!-- ===================================================================================== -->
+
    </body>
   </html>
  </xsl:template>

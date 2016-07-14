@@ -14,9 +14,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   </head>
    <body>
 
-<xsl:if test="/notification_data/request/resource_sharing_request_id != ''">
-                 <xsl:message terminate="yes">Resource Sharing Request - No automatic cancellation letter sent</xsl:message>
-</xsl:if>
    <xsl:attribute name="style">
     <xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
    </xsl:attribute>
@@ -46,23 +43,20 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
        </tr>
 
       </xsl:if>
-<br />
-<br />
-<xsl:text>Ta kontakt med ditt bibliotek hvis du har spørsmål til dette. Du finner kontaktinformasjon via lenken nederst.</xsl:text>
-<br />
-<xsl:text>If you have any questions, please contact your library. Contact information can be found via the link below.</xsl:text>
+
      </table>
      <br />
-    <table>
+    <!-- <table>
 
       <tr><td>@@sincerely@@</td></tr>
       <tr><td>@@department@@</td></tr>
 
-    </table>
+    </table> -->
     </div>
    </div>
-    <!-- footer.xsl -->
-   <xsl:call-template name="contactUs" />
+    <xsl:call-template name="email-footer" /> <!-- footer.xsl -->
+   <!-- <xsl:call-template name="contactUs" /> -->
+                        <xsl:call-template name="myAccount"/>
   </body>
  </html>
  </xsl:template>

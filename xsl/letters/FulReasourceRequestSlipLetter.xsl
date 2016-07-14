@@ -27,230 +27,287 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
           
    </h1>
 
-
-
-
    <div class="messageArea">
     <div class="messageBody">
       <table cellspacing="0" cellpadding="5" border="0">
-      <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
-      <tr>
-       <td><b>@@note_item_specified_request@@.</b></td>
-      </tr>
-      </xsl:if>
-      <xsl:if  test="notification_data/request/manual_description != ''" >
-      <tr>
-       <td><b>@@please_note@@: </b>@@manual_description_note@@ - <xsl:value-of select="notification_data/request/manual_description"/></td>
-      </tr>
-      </xsl:if>
-      <tr>
-       <td><b>@@request_id@@: </b><img src="cid:request_id_barcode.png" alt="Request Barcode"/></td>
-      </tr>
-      <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
-       <tr>
-        <td><b>@@item_barcode@@: </b><img src="cid:item_id_barcode.png" alt="Item Barcode"/></td>
-       </tr>
-      </xsl:if>
- 
-                                                 <tr>
-       <table cellpadding="5" class="listing">
-        <xsl:attribute name="style">
-         <xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
-        </xsl:attribute>
-                                                                <tr> <td colspan="6"><b>Alternative items:</b></td></tr>
-                                                                <tr> <td colspan="6"><b>List of alternative barcodes</b><i> (not complete before 13 December)</i>: <xsl:value-of select="notification_data/phys_item_display/optional_barcodes"/></td></tr>
+        <!-- Hvis et spesifikt eksemplar er bestilt, gir vi beskjed om det. -->
+          <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
+            <tr>
+              <td></td>
+              <td><b>@@note_item_specified_request@@.</b></td>
+            </tr>
+          </xsl:if>
+
+          <!-- Strekkoden *mottaker* kan scanne øverst. -->
+          <tr>
+            <td valign="top" colspan="2" align="center">
+              <font size="2">@@request_id@@:</font><br/>
+              <img src="cid:request_id_barcode.png" alt="Request Barcode"/>
+            </td>
+          </tr>
+                                             <!-- Horizontal line -->
+        <tr><td colspan="2"><hr/></td></tr>
+
+        <!-- Del 3: Grunnleggende metadata: tittel, forfatter, osv. Dette viser vi alltid! -->
         <tr>
-         <th>Barcode</th>
-         <th>Call number</th>
-         <th>Library</th>
-         <th>Location</th>
-         <th>Item policy</th>
-         <th>Public note</th>
+          <td valign="top">Title:</td>
+          <td>
+            <xsl:value-of select="notification_data/phys_item_display/title_abcnph"/>
+          </td>
         </tr>
-                                                                <tr> <td colspan="6"><i>List empty before 13 December</i></td></tr>
-                                                                <xsl:for-each select="notification_data/phys_item_display/available_items">
-                                                                    <tr>
-          <td><xsl:value-of select="barcode"/></td>
-          <td><xsl:value-of select="call_number"/></td>
-          <td><xsl:value-of select="library_name"/></td>
-          <td><xsl:value-of select="location_name"/></td>
-          <td><xsl:value-of select="item_policy"/></td>
-          <td><xsl:value-of select="public_note"/></td>
+        <tr>
+          <td valign="top">By:</td>
+          <td>
+            <xsl:value-of select="notification_data/phys_item_display/author"/>
+          </td>
+        </tr>
+        <xsl:if test="notification_data/phys_item_display/isbn != ''">
+          <tr>
+            <td valign="top">@@isbn@@:</td>
+            <td>
+              <xsl:value-of select="notification_data/phys_item_display/isbn"/>
+            </td>
+          </tr>
+        </xsl:if>
+        <xsl:if test="notification_data/phys_item_display/issn != ''">
+          <tr>
+            <td valign="top">@@issn@@:</td>
+            <td>
+              <xsl:value-of select="notification_data/phys_item_display/issn"/>
+            </td>
          </tr>
-        </xsl:for-each>
-                      </table>
-                                                 </tr>
-
-
-
-      <xsl:if  test="notification_data/external_id != ''" >
-       <tr>
-        <td><b>@@external_id@@: </b><xsl:value-of select="notification_data/external_id"/></td>
-       </tr>
-      </xsl:if>
-
-      <xsl:if test="notification_data/user_for_printing/name">
-
-      <tr>
-       <td>
-              <b>@@requested_for@@: </b><br />
-       <xsl:value-of select="notification_data/user_for_printing/name"/>
-                                                        <xsl:if test="notification_data/user_for_printing/address1 != ''">
-                                                       <br />
-                                                        <xsl:value-of select="notification_data/user_for_printing/address1"/>
-                                                        </xsl:if>
-                                                        <xsl:if test="notification_data/user_for_printing/address2 != ''">
-                                                       <br /> 
-                                                        <xsl:value-of select="notification_data/user_for_printing/address2"/>
-                                                        </xsl:if>
-                                                        <xsl:if test="notification_data/user_for_printing/address3 != ''">
-                                                        <br />
-                                                        <xsl:value-of select="notification_data/user_for_printing/address3"/>
-                                                         </xsl:if>
-                                                        <xsl:if test="notification_data/user_for_printing/user_group != ''">
-                                                        <br />
-                                                        User Group: <xsl:value-of select="notification_data/user_for_printing/user_group"/>
-                                                        </xsl:if>
-                                                        <br />
-                                                       </td>
-      </tr>
-
-      </xsl:if>
-
-      <tr>
-       <td><xsl:call-template name="recordTitle" />
-       </td>
-      </tr>
-
-       <xsl:if test="notification_data/phys_item_display/isbn != ''">
+        </xsl:if>
         <tr>
-        <td>@@isbn@@: <xsl:value-of select="notification_data/phys_item_display/isbn"/></td>
+          <td valign="top">Edition/year:</td>
+          <td>
+            <xsl:value-of select="notification_data/phys_item_display/edition"/>
+            <xsl:if test="notification_data/phys_item_display/edition != ''">&#160;</xsl:if>
+            <xsl:value-of select="notification_data/phys_item_display/publication_date"/>
+          </td>
         </tr>
-       </xsl:if>
-       <xsl:if test="notification_data/phys_item_display/issn != ''">
-        <tr>
-        <td>@@issn@@: <xsl:value-of select="notification_data/phys_item_display/issn"/></td>
-        </tr>
-       </xsl:if>
-       <xsl:if test="notification_data/phys_item_display/edition != ''">
-        <tr>
-        <td>@@edition@@: <xsl:value-of select="notification_data/phys_item_display/edition"/></td>
-        </tr>
-       </xsl:if>
-       <xsl:if test="notification_data/phys_item_display/imprint != ''">
-        <tr>
-        <td>@@imprint@@: <xsl:value-of select="notification_data/phys_item_display/imprint"/></td>
-        </tr>
-       </xsl:if>
+        <xsl:if test="notification_data/phys_item_display/issue_level_description != ''">
+          <tr>
+            <td valign="top">Issue:</td>
+            <td>
+              <xsl:value-of select="notification_data/phys_item_display/issue_level_description"/>
+            </td>
+          </tr>
+        </xsl:if>
+        <xsl:if test="notification_data/request/record_display_section/series_small != ''" >
+          <tr>
+            <td valign="top">Series:</td>
+            <td>
+              <xsl:value-of select="notification_data/request/record_display_section/series_small"/>
+            </td>
+          </tr>
+        </xsl:if>
+        <xsl:if  test="notification_data/request/manual_description != ''" >
+          <tr>
+            <td valign="top"><em>Description: </em></td>
+            <td>
+              <b>
+                <xsl:value-of select="notification_data/request/manual_description"/>
+              </b>
+            </td>
+          </tr>
+        </xsl:if>
+        <!-- Del 3: SLUTT -->
+       <!-- Horizontal line -->
+          <tr><td colspan="2"><hr/></td></tr>
 
-      <b></b>
-      <tr>
-       <td><h2><b>@@location@@: </b><xsl:value-of select="notification_data/phys_item_display/location_name"/></h2></td>
-       <xsl:if test="notification_data/phys_item_display/call_number != ''">
-        <td><h2><b>@@call_number@@: </b><xsl:value-of select="notification_data/phys_item_display/call_number"/></h2></td>
-       </xsl:if>
-       <xsl:if test="notification_data/phys_item_display/accession_number != ''">
-        <td><h2><b>@@accession_number@@: </b><xsl:value-of select="notification_data/phys_item_display/accession_number"/></h2></td>
-       </xsl:if>
-      </tr>
-      <xsl:if  test="notification_data/phys_item_display/shelving_location/string" >
-       <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
-       <tr>
-        <td><b>@@shelving_location_for_item@@: </b>
-         <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
-         <xsl:value-of select="."/>
-         &#160;
-         </xsl:for-each>
-        </td>
-       </tr>
-       </xsl:if>
-       <xsl:if  test="notification_data/request/selected_inventory_type='HOLDING'" >
-       <tr>
-        <td><b>@@shelving_locations_for_holding@@: </b>
-        <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
-         <xsl:value-of select="."/>
-        &#160;
-         </xsl:for-each>
-        </td>
-       </tr>
-       </xsl:if>
-       <xsl:if  test="notification_data/request/selected_inventory_type='VIRTUAL_HOLDING'" >
-       <tr>
-        <td><b>@@shelving_locations_for_holding@@: </b>
-        <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
-         <xsl:value-of select="."/>
-        &#160;
-         </xsl:for-each>
-        </td>
-       </tr>
-       </xsl:if>
-      </xsl:if>
-      <xsl:if  test="notification_data/phys_item_display/display_alt_call_numbers/string" >
-       <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
-       <tr>
-        <td><b>@@alt_call_number@@: </b>
-         <xsl:for-each select="notification_data/phys_item_display/display_alt_call_numbers/string">
-         <xsl:value-of select="."/>
-         &#160;
-         </xsl:for-each>
-        </td>
-       </tr>
-       </xsl:if>
-       <xsl:if  test="notification_data/request/selected_inventory_type='HOLDING'" >
-       <tr>
-        <td><b>@@alt_call_number@@: </b>
-        <xsl:for-each select="notification_data/phys_item_display/display_alt_call_numbers/string">
-         <xsl:value-of select="."/>
-        &#160;
-         </xsl:for-each>
-        </td>
-       </tr>
-       </xsl:if>
-       <xsl:if  test="notification_data/request/selected_inventory_type='VIRTUAL_HOLDING'" >
-       <tr>
-        <td><b>@@alt_call_number@@: </b>
-        <xsl:for-each select="notification_data/phys_item_display/display_alt_call_numbers/string">
-         <xsl:value-of select="."/>
-        &#160;
-         </xsl:for-each>
-        </td>
-       </tr>
-       </xsl:if>
-      </xsl:if>
+          <!-- Destination, request type, notes -->
+          <tr>
+            <td>@@request_type@@:</td>
+            <td>
+              <xsl:value-of select="notification_data/request_type"/>
+              (<xsl:value-of select="notification_data/request/request_type"/>)
+            </td>
+          </tr>
+          <xsl:if test="notification_data/user_for_printing/name">
+            <tr>
+              <td valign="top">
+                @@requested_for@@:
+              </td>
+              <td>
+                <xsl:value-of select="notification_data/user_for_printing/identifiers/code_value[1]/value"/>
+                :
+                <xsl:value-of select="notification_data/user_for_printing/name"/>
+
+                <!-- Reference: user_group
+                  │1  Egne studenter                     15. Nasjonalbiblioteket               │
+                  │2  Egne studenter - høyere grad       16. Folkebiblioteksektoren            │
+                  │3  Egne fjernstudenter                17. Bibl. i grunn-/videregående skole │
+                  │4  Egne ansatte                       18.-19. Ikke i bruk                   │
+                  │5  Ekst. stipendiater egen inst.      20. Bibliotek og lign.inst. i Danmark │
+                  │6  Stud./stip./ans. andre utd.inst -  21. Bibliotek og lign.inst. i Sverige │
+                  │7  Enkeltpersoner                     22. Bibliotek og lign.inst. i Finland │
+                  │8  Bedrifter/inst. uten bibliotek     23. Bibliotek og lign.inst. i Island  │
+                  │9  Ikke i bruk                        24. Øvrige Europeiske bibliotek       │
+                  │10 Andre bibenheter innen samme inst. 25. Verden ellers                     │
+                  │11 Universitetsbibliotek i Norge      50. Bokbinder                         │
+                  │12 Høgskolebibliotek i Norge                                                │
+                  │13 Bedriftsbibliotek i Norge          55-99 Internt bruk v/bibliotekenheten │
+                  │14 Andre fag- og forskningsbibliotek                                        │
+                  └────────────────────────────────────────────────────────────────────────────
+                -->
+              
+              </td>
+            </tr>
+          </xsl:if>
+          <xsl:if  test="notification_data/user_for_printing/email != ''" >
+            <tr>
+              <td valign="top">@@email@@:</td>
+              <td>
+                <xsl:value-of select="notification_data/user_for_printing/email"/>
+              </td>
+            </tr>
+          </xsl:if>
+          <xsl:if  test="notification_data/external_id != ''" >
+            <tr>
+              <td valign="top">@@external_id@@:</td>
+              <td>
+                <xsl:value-of select="notification_data/external_id"/>
+              </td>
+            </tr>
+          </xsl:if>
+          <tr>
+            <td valign="top">@@move_to_library@@:</td>
+            <td>
+              <xsl:value-of select="notification_data/destination"/>
+            </td>
+          </tr>
+          <xsl:if test="notification_data/request/system_notes != ''">
+            <tr>
+              <td valign="top">@@system_notes@@:</td>
+              <td>
+                <xsl:value-of select="notification_data/request/system_notes"/>
+              </td>
+            </tr>
+          </xsl:if>
+          <xsl:if test="notification_data/request/note != ''">
+            <tr>
+              <td valign="top"><em>@@request_note@@:</em></td>
+              <td>
+                <b>
+                  <xsl:value-of select="notification_data/request/note"/>
+                </b>
+              </td>
+            </tr>
+          </xsl:if>
+
+          <!-- Horizontal line -->
+          <tr><td colspan="2"><hr/></td></tr>
 
       <b></b>
 
-      <tr>
-       <td><b>@@move_to_library@@: </b><xsl:value-of select="notification_data/destination"/></td>
-      </tr>
-      <tr>
-       <td><b>@@request_type@@: </b><xsl:value-of select="notification_data/request_type"/></td>
-      </tr>
+ <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
+            <tr>
+              <td>
+                @@shelving_location_for_item@@:
+              </td>
+              <td>
+                <xsl:choose>
+                  <xsl:when test="notification_data/phys_item_display/shelving_location/string != ''">
+                    <xsl:value-of select="notification_data/phys_item_display/shelving_location/string"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="notification_data/phys_item_display/barcode"/> :
+                    <xsl:value-of select="notification_data/phys_item_display/library_name"/>&#160;
+                    <xsl:value-of select="notification_data/phys_item_display/location_name"/>&#160;
+                    <xsl:value-of select="notification_data/phys_item_display/call_number"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </td>
+            </tr>
+          </xsl:if>
 
-      <xsl:if test="notification_data/request/system_notes != ''">
-       <tr>
-       <td><b>@@system_notes@@:</b><xsl:value-of select="notification_data/request/system_notes"/></td>
-      </tr>
-      </xsl:if>
+<!-- Bestilling på HOLDING med midlertidig plassering -->
+              <xsl:if test="notification_data/request/selected_inventory_type='VIRTUAL_HOLDING'" >
+                <p>
+                 @@shelving_locations_for_holding@@:
+                </p>
+                <p>
+                  <xsl:for-each select="notification_data/phys_item_display/shelving_location/string">
+                    <xsl:value-of select="."/>
+                  </xsl:for-each>
+                </p>
+              </xsl:if>
 
-      <xsl:if test="notification_data/request/note != ''">
-       <tr>
-       <td><b>@@request_note@@:</b> <xsl:value-of select="notification_data/request/note"/></td>
-      </tr>
-      </xsl:if>
+<!-- Bestilling på HOLDING -->
+    
 
+                <!-- Hvis det finnes tilgjengelige eksemplarer ved biblioteksavdelingen jeg befinner meg på nå,
+                     skriver vi ut dem. -->
+                <xsl:if test="count(notification_data/phys_item_display/available_items/available_item[library_code=/notification_data/organization_unit/code]) != 0">
+                  <p>
+                    Available item(s):
+                  </p>
+                  <table>
+                    <xsl:for-each select="notification_data/phys_item_display/available_items/available_item[library_code=/notification_data/organization_unit/code]">
+                      <tr>
+                        <td style="margin-right:2px;">
+                          <font size="5"><xsl:value-of select="barcode"/></font>
+                        </td>
+                        <td>
+                          <font size="5"><xsl:value-of select="location_name"/><xsl:text> </xsl:text></font>
+                        </td>
+                        <td>
+                          <u><font size="5"><xsl:value-of select="call_number"/></font></u>
+                        </td>
+                        <td>
+                          <xsl:value-of select="public_note"/>
+                        </td>
+                      </tr>
+                    </xsl:for-each>
+                  </table>
+                </xsl:if>
+  
+<!-- Hvis det ikke finnes tilgjengelige eksemplarer ved biblioteksavdelingen jeg befinner meg på nå,
+                     faller vi tilbake på standard-forslaget fra Alma. -->
+                <xsl:if test="count(notification_data/phys_item_display/available_items/available_item[library_code=/notification_data/organization_unit/code]) = 0">
+                  <p>
+                    <strong>
+                      <xsl:value-of select="notification_data/phys_item_display/location_name"/>
+                      <xsl:if test="notification_data/phys_item_display/call_number != ''">
+                        &#160;<xsl:value-of select="notification_data/phys_item_display/call_number"/>
+                      </xsl:if>
+      <xsl:if test="notification_data/phys_item_display/accession_number != ''">
+                        &#160; - @@accession_number@@:
+                        <xsl:value-of select="notification_data/phys_item_display/accession_number"/>
+                      </xsl:if>
+                    </strong>
+<xsl:for-each select="notification_data/phys_item_display/summary_holding_infos/summary_holding_info">
+                      <span>
+                        &#160;&#160;
+                        <xsl:value-of select="summary_holding"/>
+                        &#160;
+                        <xsl:value-of select="notes/string"/>
+                      </span>
+                    </xsl:for-each>
+                  </p>
+</xsl:if>
+ <!-- Slutt: Bestilling på HOLDING -->
 
      </table>
     </div>
    </div>
-
-
-
-
- <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-
-
-
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
+<br> </br>
+  <!-- =====================================================================================
+        Libnummer skrives ut hvis LTID begynner med "lib".
+        Alternativ 2: CSS-basert løsning for de som ikke bruker html2ps
+        Se https://github.com/scriptotek/alma-slipsomat#libnummer-norsk-isil-kode
+        ===================================================================================== -->
+  <xsl:if test="contains(/notification_data/user_for_printing/identifiers/code_value[1]/value, 'lib') and /notification_data/organization_unit/org_scope/institution_id != '2204'">
+    <div id="libnummer" style="position: fixed; bottom: 100px; left: 30px; font-size: 60px;">
+      <xsl:value-of select="substring(/notification_data/user_for_printing/identifiers/code_value[1]/value, 4, 3)"/>&#160;&#160;<xsl:value-of select="substring(/notification_data/user_for_printing/identifiers/code_value[1]/value, 7, 4)"/>
+    </div>
+  </xsl:if>
+  <!-- ===================================================================================== -->
 
 
 </body>

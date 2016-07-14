@@ -8,17 +8,24 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:include href="mailReason.xsl" />
 <xsl:include href="footer.xsl" />
 <xsl:include href="style.xsl" />
+ <xsl:template name="id-info-hdr">
+    <xsl:call-template name="id-info">
+      <xsl:with-param name="line" select="notification_data/incoming_request/external_request_id"/>
+      <xsl:with-param name="label" select="'Bibliographic Information:'"/>
+    </xsl:call-template>
+  </xsl:template>
 
-<xsl:template match="/">
- <html>
-  <head>
-  <xsl:call-template name="generalStyle" />
-  </head>
+  <xsl:template match="/">
 
-   <body>
-   <xsl:attribute name="style">
-    <xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
-   </xsl:attribute>
+    <html>
+      <head>
+        <xsl:call-template name="generalStyle"/>
+      </head>
+      <body>
+        <xsl:attribute name="style">
+          <xsl:call-template name="bodyStyleCss"/>
+          <!-- style.xsl -->
+        </xsl:attribute>
 
     <xsl:call-template name="head" /> <!-- header.xsl -->
     <xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->

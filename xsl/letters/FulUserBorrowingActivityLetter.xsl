@@ -156,16 +156,16 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
    <br />
 
-   <table>
+   <!-- <table>
     <tr><td>@@sincerely@@</td></tr>
     <tr><td>@@department@@</td></tr>
-   </table>
+   </table> -->
 
           </div>
         </div>
 
         <!-- footer.xsl -->
-        <xsl:call-template name="lastFooter" />
+        <xsl:call-template name="email-footer" />
         <xsl:call-template name="myAccount" />
   <xsl:call-template name="contactUs" />
       </body>

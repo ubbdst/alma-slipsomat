@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:variable name="counter" select="0"/>
+<xsl:include href="header.xsl"/>
+<xsl:include href="senderReceiver.xsl"/>
+<xsl:include href="mailReason.xsl"/>
+<xsl:include href="footer.xsl"/>
+<xsl:include href="style.xsl"/>
+<xsl:include href="recordTitle.xsl"/>
 
-
-<xsl:include href="header.xsl" />
-<xsl:include href="senderReceiver.xsl" />
-<xsl:include href="mailReason.xsl" />
-<xsl:include href="footer.xsl" />
-<xsl:include href="style.xsl" />
-<xsl:include href="recordTitle.xsl" />
-
-<xsl:template name="id-info">
-   <xsl:param name="line"/>
-   <xsl:variable name="first" select="substring-before($line,'//')"/>
-   <xsl:variable name="rest" select="substring-after($line,'//')"/>
+  <xsl:template name="id-info">
+    <xsl:param name="line"/>
+    <xsl:variable name="first" select="substring-before($line,'//')"/>
+    <xsl:variable name="rest" select="substring-after($line,'//')"/>
     <xsl:if test="$first = '' and $rest = '' ">
-          <!--br/-->
-      </xsl:if>
-   <xsl:if test="$rest != ''">
-       <xsl:value-of select="$rest"/><br/>
-   </xsl:if>
-   <xsl:if test="$rest = ''">
-       <xsl:value-of select="$line"/><br/>
-   </xsl:if>
-
-</xsl:template>
+      <!--br/-->
+    </xsl:if>
+    <xsl:if test="$rest != ''">
+      <xsl:value-of select="$rest"/>
+      <br/>
+    </xsl:if>
+    <xsl:if test="$rest = ''">
+      <xsl:value-of select="$line"/>
+      <br/>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template name="id-info-hdr">
-        <xsl:call-template name="id-info">
-            <xsl:with-param name="line" select="notification_data/incoming_request/external_request_id"/>
-            <xsl:with-param name="label" select="'Bibliographic Information:'"/>
-         </xsl:call-template>
-</xsl:template>
+    <xsl:call-template name="id-info">
+      <xsl:with-param name="line" select="notification_data/incoming_request/external_request_id"/>
+      <xsl:with-param name="label" select="'Bibliographic Information:'"/>
+    </xsl:call-template>
+  </xsl:template>
 
-<xsl:template match="/">
- <html>
-  <head>
-  <xsl:call-template name="generalStyle" />
-  </head>
+  <xsl:template match="/">
 
-   <body>
-   <xsl:attribute name="style">
-    <xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
-   </xsl:attribute>
+    <html>
+      <head>
+        <xsl:call-template name="generalStyle"/>
+      </head>
+      <body>
+        <xsl:attribute name="style">
+          <xsl:call-template name="bodyStyleCss"/>
+          <!-- style.xsl -->
+        </xsl:attribute>
 
-     <xsl:call-template name="headWithoutLogo" /> <!-- header.xsl -->
+        <xsl:call-template name="headWithoutLogo"/><!-- Defined in mailReason.xsl -->
 
+        <div class="messageArea">
+          <div class="messageBody">
 
-   <div class="messageArea">
-    <div class="messageBody">
-      <table cellspacing="0" cellpadding="5" border="0">
+            <p align="center">
+              <img alt="externalId" src="externalId.png"/>
+            </p>
 
+            <table border="0" cellpadding="5" cellspacing="0">
 
-      <tr>
+              <tr>
                 <td>@@format@@:</td>
                 <td>
                   <xsl:value-of select="notification_data/incoming_request/format"/>
@@ -72,10 +75,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                  <tr><td>@@borrower_reference@@:</td><td><xsl:call-template name="id-info-hdr"/></td></tr>
               -->
 
-             <tr>
-         <td>@@my_id@@: </td><td><img src="externalId.png" alt="externalId" /></td>
-          </tr>
-
               <xsl:if test="notification_data/incoming_request/create_date_str != ''">
                 <tr>
                   <td>Request created:</td>
@@ -92,7 +91,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 </tr>
               </xsl:if>
 
-      
               <xsl:if test="notification_data/incoming_request/needed_by != ''">
                 <tr>
                   <td>@@date_needed_by@@:</td>
@@ -129,42 +127,42 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 </tr>
               </xsl:if>
 
-<tr>
+              <tr>
                 <td valign="top">Metadata:</td>
                 <td>
                   <table border="0" cellpadding="2" cellspacing="0">
 
                     <xsl:if test="notification_data/metadata/material_type != ''">
                       <tr>
-                        <td align="right">Type:</td>
+                        <td align="left">Type:</td>
                         <td><xsl:value-of select="notification_data/metadata/material_type"/></td>
                       </tr>
                     </xsl:if>
 
-                    <xsl:if test="notification_data/metadata/title != ''">
+                    <xsl:if test="notification_data/incoming_request/display/title != ''">
                       <tr>
-                        <td align="right">Title:</td>
-                        <td><xsl:value-of select="notification_data/metadata/title"/></td>
+                        <td align="left">Title:</td>
+                        <td><xsl:value-of select="notification_data/incoming_request/display/title"/></td>
                       </tr>
                     </xsl:if>
 
                     <xsl:if test="notification_data/metadata/author != ''">
                       <tr>
-                        <td align="right">Author:</td>
+                        <td align="left">Author:</td>
                         <td><xsl:value-of select="notification_data/metadata/author"/></td>
                       </tr>
                     </xsl:if>
 
                     <xsl:if test="notification_data/metadata/journal_title != ''">
                       <tr>
-                        <td align="right">Journal/series:</td>
+                        <td align="left">Journal/series:</td>
                         <td><xsl:value-of select="notification_data/metadata/journal_title"/></td>
                       </tr>
                     </xsl:if>
 
                     <xsl:if test="notification_data/metadata/volume != ''">
                       <tr>
-                        <td align="right">Vol.:</td>
+                        <td align="left">Vol.:</td>
                         <td>
                           <xsl:call-template name="string-replace"><!-- Defined in header.xsl -->
                             <xsl:with-param name="string" select="notification_data/metadata/volume"/>
@@ -177,28 +175,28 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
                     <xsl:if test="notification_data/metadata/issue != ''">
                       <tr>
-                        <td align="right">Issue:</td>
+                        <td align="left">Issue:</td>
                         <td><xsl:value-of select="notification_data/metadata/issue"/></td>
                       </tr>
                     </xsl:if>
 
                     <xsl:if test="notification_data/metadata/start_page != ''">
                       <tr>
-                        <td align="right">Start page:</td>
+                        <td align="left">Start page:</td>
                         <td><xsl:value-of select="notification_data/metadata/start_page"/></td>
                       </tr>
                     </xsl:if>
 
                     <xsl:if test="notification_data/metadata/start_page = '' and notification_data/metadata/pages != ''">
                       <tr>
-                        <td align="right">Pages:</td>
+                        <td align="left">Pages:</td>
                         <td><xsl:value-of select="notification_data/metadata/pages"/></td>
                       </tr>
                     </xsl:if>
 
                     <xsl:if test="notification_data/metadata/publication_date != ''">
                       <tr>
-                        <td align="right">Date:</td>
+                        <td align="left">Date:</td>
                         <td><xsl:value-of select="notification_data/metadata/publication_date"/></td>
                       </tr>
                     </xsl:if>
@@ -206,8 +204,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                   </table>
                 </td>
               </tr>
-      
-<xsl:if test="notification_data/incoming_request/locate_status != ''">
+
+              <xsl:if test="notification_data/incoming_request/locate_status != ''">
                 <tr>
                   <td>Locate status: </td>
                   <td>
@@ -238,11 +236,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 </tr>
               </xsl:if>
 
-      
-      
-     </table>
+            </table>
 
-<!-- Available items -->
+            <!-- Available items -->
             <xsl:if test="count(notification_data/items/physical_item_display_for_printing/available_items/available_item) != 0 and notification_data/metadata/material_type != 'Article'">
 
               <hr/>
@@ -282,30 +278,25 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
               </xsl:if>
             </xsl:if>
 
+            <!-- ALERT1: Ikke en sendeseddel. -->
+             <p>
+              <hr/>
+              <strong>
+                Merk:
+              </strong>
+              <em>
+                Dette er ikke en sendeseddel. Bruk "Ship non-returnable" (for kopier) eller "Ship Item" (for andre dokumenter) for å angi at dokumentet er klar til sending. Etterpå vil "Print Slip" gi sendeseddel.
+              </em>
+              <hr/>
+             </p>
+            <!-- ALERT1: END -->
+
+          </div>
+        </div>
 
 
-    </div>
-   </div>
+      </body>
+    </html>
+  </xsl:template>
 
-  <!-- =====================================================================================
-          Libnummer
-          Alternativ 2: CSS-basert løsning for de som ikke bruker html2ps
-          Se https://github.com/scriptotek/alma-slipsomat#libnummer-norsk-isil-kode
-          ===================================================================================== -->
-    <xsl:if test="/notification_data/organization_unit/org_scope/institution_id != '2204'">
-      <div id="libnummer" style="position: fixed; bottom: 100px; left: 30px; font-size: 60px;">
-        <xsl:for-each select="/notification_data/partner_shipping_info_list/partner_shipping_info[1]/address5">
-          <xsl:value-of select="substring(., 4,3)"/>&#160;&#160;<xsl:value-of select="substring(., 7,4)"/>
-        </xsl:for-each>
-      </div>
-    </xsl:if>
-    <!-- ===================================================================================== -->
-
-
-
-</body>
-</html>
-
-
- </xsl:template>
 </xsl:stylesheet>

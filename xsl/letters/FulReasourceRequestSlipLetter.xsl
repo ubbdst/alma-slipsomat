@@ -16,20 +16,20 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   </head>
 
    <body>
-   <h1>
+   <h2>
     <b>@@requested_for@@ :
        <xsl:value-of select="notification_data/user_for_printing/identifiers/code_value[1]/value"/>
        : &#160;
        <xsl:value-of select="notification_data/user_for_printing/name"/>
                                                         : &#160;
        <xsl:value-of select="notification_data/user_for_printing/user_group"/>
-    </b>
-          
-   </h1>
+    </b>   
+   </h2>
 
    <div class="messageArea">
     <div class="messageBody">
       <table cellspacing="0" cellpadding="5" border="0">
+
         <!-- Hvis et spesifikt eksemplar er bestilt, gir vi beskjed om det. -->
           <xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
             <tr>
@@ -245,13 +245,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                   <table>
                     <xsl:for-each select="notification_data/phys_item_display/available_items/available_item[library_code=/notification_data/organization_unit/code]">
                       <tr>
-                        <td style="margin-right:2px;">
+                        <td style="margin-right:3px;">
                           <font size="5"><xsl:value-of select="barcode"/></font>
                         </td>
-                        <td>
-                          <font size="5"><xsl:value-of select="location_name"/><xsl:text> </xsl:text></font>
+                        <td style="margin-right:3px;">
+                          <font size="5"><xsl:value-of select="location_name"/></font>
                         </td>
-                        <td>
+                        <td style="margin-right:3px;">
                           <u><font size="5"><xsl:value-of select="call_number"/></font></u>
                         </td>
                         <td>
@@ -292,18 +292,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     </div>
    </div>
 <br> </br>
-<br> </br>
-<br> </br>
-<br> </br>
-<br> </br>
-<br> </br>
+
   <!-- =====================================================================================
         Libnummer skrives ut hvis LTID begynner med "lib".
         Alternativ 2: CSS-basert løsning for de som ikke bruker html2ps
         Se https://github.com/scriptotek/alma-slipsomat#libnummer-norsk-isil-kode
         ===================================================================================== -->
   <xsl:if test="contains(/notification_data/user_for_printing/identifiers/code_value[1]/value, 'lib') and /notification_data/organization_unit/org_scope/institution_id != '2204'">
-    <div id="libnummer" style="position: fixed; bottom: 100px; left: 30px; font-size: 60px;">
+    <div id="libnummer" style="position: fixed; bottom: 10px; left: 30px; font-size: 60px;">
       <xsl:value-of select="substring(/notification_data/user_for_printing/identifiers/code_value[1]/value, 4, 3)"/>&#160;&#160;<xsl:value-of select="substring(/notification_data/user_for_printing/identifiers/code_value[1]/value, 7, 4)"/>
     </div>
   </xsl:if>

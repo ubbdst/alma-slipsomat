@@ -20,7 +20,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   )"/>
 </xsl:template>
 
-
 <!--
     Template for converting date from MM/DD/YYYY to d. m YYYY (and remove time).
     Added by: DMOH 2016-06-28

@@ -41,9 +41,32 @@ OBS: Denne brukes også av mange andre XSL-filer. -->
  </td>
   </xsl:for-each>
 
-
 </tr>
 </table>
+</xsl:template>
+
+<xsl:template name="headWithoutLogo">
+  <xsl:for-each select="/notification_data/general_data">
+    <div>
+      <xsl:attribute name="style">
+        <xsl:call-template name="headerTableStyleCss" /> <!-- style.xsl -->
+      </xsl:attribute>
+      <table width="100%">
+        <tr>
+          <td>
+            <h2><xsl:value-of select="letter_name"/></h2>
+          </td>
+          <td align="right" valign="top">
+            <h2>
+              <xsl:call-template name="isoDate"><!-- header.xsl -->
+                <xsl:with-param name="value" select="current_date"/>
+              </xsl:call-template>
+            </h2>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </xsl:for-each>
 </xsl:template>
 
 <!--

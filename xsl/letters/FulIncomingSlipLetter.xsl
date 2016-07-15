@@ -45,8 +45,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
    </xsl:attribute>
 
-    <xsl:call-template name="head" /> <!-- header.xsl -->
-
+     <xsl:call-template name="headWithoutLogo" /> <!-- header.xsl -->
 
 
    <div class="messageArea">
@@ -55,128 +54,252 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
       <tr>
-       <td>
-        <b>@@supplied_to@@: </b>
-        <xsl:value-of select="notification_data/partner_name"/>
-       </td>
-      </tr>
+                <td>@@format@@:</td>
+                <td>
+                  <xsl:value-of select="notification_data/incoming_request/format"/>
+                </td>
+              </tr>
 
+              <tr>
+                <td>@@supplied_to@@: </td>
+                <td>
+                  <xsl:value-of select="notification_data/partner_name"/>
+                  (<xsl:value-of select="notification_data/incoming_request/requester_email"/>)
+                </td>
+              </tr>
 
-      <tr>
-                   <td>
-                     <b>@@borrower_reference@@: </b>
-                      <xsl:call-template name="id-info-hdr"/>
-                   </td>
-                 </tr>
-
-
+              <!--
+                 <tr><td>@@borrower_reference@@:</td><td><xsl:call-template name="id-info-hdr"/></td></tr>
+              -->
 
              <tr>
-         <td><b>@@my_id@@: </b><img src="externalId.png" alt="externalId" /></td>
+         <td>@@my_id@@: </td><td><img src="externalId.png" alt="externalId" /></td>
           </tr>
 
-      <tr>
-       <td>
-        <b>@@format@@: </b>
-        <xsl:value-of select="notification_data/incoming_request/format"/>
-       </td>
-      </tr>
+              <xsl:if test="notification_data/incoming_request/create_date_str != ''">
+                <tr>
+                  <td>Request created:</td>
+                  <td>
+                    <xsl:call-template name="stdDate"><!-- Defined in mailReason.xsl -->
+                      <xsl:with-param name="value" select="notification_data/incoming_request/create_date_str"/>
+                    </xsl:call-template>
+                    <xsl:if test="notification_data/incoming_request/create_date_str != notification_data/incoming_request/modification_date_str">&#160;(updated
+                      <xsl:call-template name="stdDate">
+                        <!-- mailReason.xsl -->
+                        <xsl:with-param name="value" select="notification_data/incoming_request/modification_date_str"/></xsl:call-template>)
+                    </xsl:if>
+                  </td>
+                </tr>
+              </xsl:if>
 
-      <xsl:if  test="notification_data/incoming_request/needed_by_dummy/full_date" >
-       <tr>
-        <td>
-         <b>@@date_needed_by@@: </b>
-         <xsl:value-of select="notification_data/incoming_request/needed_by"/>
-        </td>
-       </tr>
-      </xsl:if>
+      
+              <xsl:if test="notification_data/incoming_request/needed_by != ''">
+                <tr>
+                  <td>@@date_needed_by@@:</td>
+                  <td>
+                    <xsl:value-of select="notification_data/incoming_request/needed_by"/>
+                  </td>
+                </tr>
+              </xsl:if>
 
-      <xsl:if  test="notification_data/incoming_request/note" >
-       <tr>
-        <td>
-         <b>@@request_note@@: </b>
-         <xsl:value-of select="notification_data/incoming_request/note"/>
-        </td>
-       </tr>
-      </xsl:if>
+              <xsl:if test="notification_data/assignee != ''">
+                <tr>
+                  <td>@@assignee@@: </td>
+                  <td>
+                    <xsl:value-of select="notification_data/assignee"/>
+                  </td>
+                </tr>
+              </xsl:if>
 
-      <xsl:if  test="notification_data/incoming_request/requester_email" >
-       <tr>
-        <td>
-         <b>@@requester_email@@: </b>
-         <xsl:value-of select="notification_data/incoming_request/requester_email"/>
-        </td>
-       </tr>
-      </xsl:if>
+              <xsl:if test="notification_data/level_of_service !=''">
+                <tr>
+                  <td>@@level_of_service@@:</td>
+                  <td>
+                    <xsl:value-of select="notification_data/level_of_service"/>
+                  </td>
+                </tr>
+              </xsl:if>
 
-      <xsl:if  test="notification_data/assignee != ''" >
-       <tr>
-        <td>
-         <b>@@assignee@@: </b>
-         <xsl:value-of select="notification_data/assignee"/>
-        </td>
-       </tr>
-      </xsl:if>
+              <xsl:if test="notification_data/incoming_request/note != ''">
+                <tr>
+                  <td>@@request_note@@: </td>
+                  <td>
+                    <xsl:value-of select="notification_data/incoming_request/note"/>
+                  </td>
+                </tr>
+              </xsl:if>
 
-        <xsl:if test="notification_data/level_of_service !=''">
-         <tr>
-          <td>
-           <b>@@level_of_service@@: </b>
-           <xsl:value-of select="notification_data/level_of_service"/>
-          </td>
+<tr>
+                <td valign="top">Metadata:</td>
+                <td>
+                  <table border="0" cellpadding="2" cellspacing="0">
 
-         </tr>
-        </xsl:if>
+                    <xsl:if test="notification_data/metadata/material_type != ''">
+                      <tr>
+                        <td align="right">Type:</td>
+                        <td><xsl:value-of select="notification_data/metadata/material_type"/></td>
+                      </tr>
+                    </xsl:if>
 
-      <xsl:for-each select="notification_data/items/physical_item_display_for_printing">
-       <br></br>
+                    <xsl:if test="notification_data/metadata/title != ''">
+                      <tr>
+                        <td align="right">Title:</td>
+                        <td><xsl:value-of select="notification_data/metadata/title"/></td>
+                      </tr>
+                    </xsl:if>
 
-       <tr>
-         <td><b>@@item_barcode@@: </b><img src="cid:{concat(concat('Barcode',position()),'.png')}" alt="{concat('Barcode',position())}" /></td>
-       </tr>
+                    <xsl:if test="notification_data/metadata/author != ''">
+                      <tr>
+                        <td align="right">Author:</td>
+                        <td><xsl:value-of select="notification_data/metadata/author"/></td>
+                      </tr>
+                    </xsl:if>
 
-       <tr>
-        <td><xsl:value-of select="title"/></td>
-       </tr>
+                    <xsl:if test="notification_data/metadata/journal_title != ''">
+                      <tr>
+                        <td align="right">Journal/series:</td>
+                        <td><xsl:value-of select="notification_data/metadata/journal_title"/></td>
+                      </tr>
+                    </xsl:if>
 
-       <tr>
-        <td>
-         <b>@@library@@: </b>
-         <xsl:value-of select="library_name"/>
-        </td>
-       </tr>
+                    <xsl:if test="notification_data/metadata/volume != ''">
+                      <tr>
+                        <td align="right">Vol.:</td>
+                        <td>
+                          <xsl:call-template name="string-replace"><!-- Defined in header.xsl -->
+                            <xsl:with-param name="string" select="notification_data/metadata/volume"/>
+                            <xsl:with-param name="replace" select="'Vol:'"/>
+                            <xsl:with-param name="with" select="''"/>
+                          </xsl:call-template>
+                        </td>
+                      </tr>
+                    </xsl:if>
 
-       <tr>
-        <td><b>@@location@@: </b><xsl:value-of select="location_name"/></td>
-       </tr>
+                    <xsl:if test="notification_data/metadata/issue != ''">
+                      <tr>
+                        <td align="right">Issue:</td>
+                        <td><xsl:value-of select="notification_data/metadata/issue"/></td>
+                      </tr>
+                    </xsl:if>
 
-       <xsl:if  test="call_number" >
-        <tr>
-         <td><b>@@call_number@@: </b><xsl:value-of select="call_number"/></td>
-        </tr>
-       </xsl:if>
+                    <xsl:if test="notification_data/metadata/start_page != ''">
+                      <tr>
+                        <td align="right">Start page:</td>
+                        <td><xsl:value-of select="notification_data/metadata/start_page"/></td>
+                      </tr>
+                    </xsl:if>
 
-       <xsl:if  test="shelving_location/string" >
-        <tr>
-         <td><b>@@shelving_location_for_item@@: </b>
-          <xsl:for-each select="shelving_location/string">
-          <xsl:value-of select="."/>
-          &#160;
-          </xsl:for-each>
-         </td>
-        </tr>
-       </xsl:if>
-      </xsl:for-each>
+                    <xsl:if test="notification_data/metadata/start_page = '' and notification_data/metadata/pages != ''">
+                      <tr>
+                        <td align="right">Pages:</td>
+                        <td><xsl:value-of select="notification_data/metadata/pages"/></td>
+                      </tr>
+                    </xsl:if>
+
+                    <xsl:if test="notification_data/metadata/publication_date != ''">
+                      <tr>
+                        <td align="right">Date:</td>
+                        <td><xsl:value-of select="notification_data/metadata/publication_date"/></td>
+                      </tr>
+                    </xsl:if>
+
+                  </table>
+                </td>
+              </tr>
+      
+<xsl:if test="notification_data/incoming_request/locate_status != ''">
+                <tr>
+                  <td>Locate status: </td>
+                  <td>
+                    <xsl:value-of select="notification_data/incoming_request/locate_status"/>
+                  </td>
+                </tr>
+              </xsl:if>
+
+              <xsl:if test="notification_data/incoming_request/display/title != '' and notification_data/metadata/material_type = 'Article'">
+                <tr>
+                  <td valign="top">Journal (located):</td>
+                  <td>
+                    <xsl:value-of select="notification_data/incoming_request/display/title"/>
+                  </td>
+                </tr>
+              </xsl:if>
+
+              <xsl:if test="notification_data/incoming_request/display/availability != ''">
+                <tr>
+                  <td valign="top">Availability:</td>
+                  <td>
+                    <xsl:call-template name="string-replace"><!-- Defined in header.xsl -->
+                      <xsl:with-param name="string" select="notification_data/incoming_request/display/availability"/>
+                      <xsl:with-param name="replace" select="'Availability:'"/>
+                      <xsl:with-param name="with" select="''"/>
+                    </xsl:call-template>
+                  </td>
+                </tr>
+              </xsl:if>
+
+      
+      
      </table>
+
+<!-- Available items -->
+            <xsl:if test="count(notification_data/items/physical_item_display_for_printing/available_items/available_item) != 0 and notification_data/metadata/material_type != 'Article'">
+
+              <hr/>
+
+              <h3>Available items:</h3>
+              <table>
+                <th>@@item_barcode@@</th>
+                <th>@@location@@</th>
+                <th>@@call_number@@</th>
+                <th>@@shelving_location_for_item@@</th>
+                <!-- Loop over available items, but show max 10 -->
+                <xsl:for-each select="notification_data/items/physical_item_display_for_printing[position() &lt;= 10]/available_items/available_item">
+                  <tr>
+                    <td>
+                      <xsl:value-of select="barcode"/>
+                    </td>
+                    <td>
+                      <xsl:value-of select="location_name"/>
+                    </td>
+                    <td>
+                      <xsl:value-of select="call_number"/>
+                    </td>
+                    <xsl:if test="shelving_location/string">
+                      <td>
+                        <xsl:for-each select="shelving_location/string">
+                          <xsl:value-of select="."/>
+                        </xsl:for-each>
+                      </td>
+                    </xsl:if>
+                  </tr>
+                </xsl:for-each>
+              </table>
+              <xsl:if test="count(notification_data/items/physical_item_display_for_printing/available_items/available_item) > 10">
+                <p><em>
+                  (Only showing the first 10 items)
+                </em></p>
+              </xsl:if>
+            </xsl:if>
+
+
+
     </div>
    </div>
 
-
-
-
- <xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-
-
+  <!-- =====================================================================================
+          Libnummer
+          Alternativ 2: CSS-basert løsning for de som ikke bruker html2ps
+          Se https://github.com/scriptotek/alma-slipsomat#libnummer-norsk-isil-kode
+          ===================================================================================== -->
+    <xsl:if test="/notification_data/organization_unit/org_scope/institution_id != '2204'">
+      <div id="libnummer" style="position: fixed; bottom: 100px; left: 30px; font-size: 60px;">
+        <xsl:for-each select="/notification_data/partner_shipping_info_list/partner_shipping_info[1]/address5">
+          <xsl:value-of select="substring(., 4,3)"/>&#160;&#160;<xsl:value-of select="substring(., 7,4)"/>
+        </xsl:for-each>
+      </div>
+    </xsl:if>
+    <!-- ===================================================================================== -->
 
 
 

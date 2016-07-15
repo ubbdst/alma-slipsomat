@@ -72,23 +72,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
               </tr>
              </table>
     <br />
-    <br />
+    <p>
     @@additional_info_1@@
-   <br />
-   @@additional_info_2@@
-    <br />
-   <table>
-    <tr><td>@@sincerely@@</td></tr>
-    <tr><td>@@department@@</td></tr>
-   </table>
+  </p>
 
+  <p>
+    @@additional_info_2@@
+  </p>
           </div>
         </div>
 
-        <!-- footer.xsl -->
-        <xsl:call-template name="lastFooter" />
+        <xsl:call-template name="email-footer" /> <!-- footer.xsl -->
          <xsl:call-template name="myAccount" />
-  <xsl:call-template name="contactUs" />
+  
       </body>
     </html>
   </xsl:template>

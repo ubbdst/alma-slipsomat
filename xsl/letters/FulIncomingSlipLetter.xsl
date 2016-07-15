@@ -279,7 +279,7 @@
             </xsl:if>
 
             <!-- ALERT1: Ikke en sendeseddel. -->
-             <p>
+             <!--<p>
               <hr/>
               <strong>
                 Merk:
@@ -288,7 +288,7 @@
                 Dette er ikke en sendeseddel. Bruk "Ship non-returnable" (for kopier) eller "Ship Item" (for andre dokumenter) for å angi at dokumentet er klar til sending. Etterpå vil "Print Slip" gi sendeseddel.
               </em>
               <hr/>
-             </p>
+             </p>-->
             <!-- ALERT1: END -->
 
           </div>

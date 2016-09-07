@@ -15,6 +15,11 @@
       "default_checksum": "bdeb9d01f59e7e1e9e35c911dd571d26ebe53e3d",
       "modified": "-"
     },
+    "xsl/letters/CloudIdPUserCreatedLetter.xsl": {
+      "checksum": "75334e9efa4931eed72eb3f445b5c6eb751cc605",
+      "default_checksum": null,
+      "modified": "-"
+    },
     "xsl/letters/CollectionContributionLetter.xsl": {
       "checksum": "25878f15325b7a1f52c3ac580263761201bf0c38",
       "default_checksum": "25878f15325b7a1f52c3ac580263761201bf0c38",
@@ -76,9 +81,9 @@
       "modified": "-"
     },
     "xsl/letters/FulCancelRequestLetter.xsl": {
-      "checksum": "d09cb446ddcb593f32dd8e73366965351e3bea23",
+      "checksum": "446f08dc65f19f9203641f3bc6d50589bad2ed5c",
       "default_checksum": "c530ad5e696f363e83a78a57f14ce10574e13185",
-      "modified": "13/07/2016"
+      "modified": "23/08/2016"
     },
     "xsl/letters/FulCitationSlipLetter.xsl": {
       "checksum": "f9add6a973190e41fb6b0b0b1c1f71f3bb2a10e8",
@@ -88,6 +93,11 @@
     "xsl/letters/FulCitationsSlipLetter.xsl": {
       "checksum": "76e7f588edb5837a5cb771ece90958f9664fd9d9",
       "default_checksum": "76e7f588edb5837a5cb771ece90958f9664fd9d9",
+      "modified": "-"
+    },
+    "xsl/letters/FulDigitizationDocumentDeliveryNotificationLetter.xsl": {
+      "checksum": "81bb6c9e2e53e4dd6649f390d19111e1b0a07bd2",
+      "default_checksum": null,
       "modified": "-"
     },
     "xsl/letters/FulDigitizationNotificationItemLetter.xsl": {
@@ -101,9 +111,9 @@
       "modified": "14/07/2016"
     },
     "xsl/letters/FulIncomingSlipLetter.xsl": {
-      "checksum": "6b600b6a88b555ddef9706c13e4f5e78153c1197",
+      "checksum": "a5b21254aa4f2447dde996889b6b268de3205b68",
       "default_checksum": "28babbd4134e074706a5ed93a29975bfd8807568",
-      "modified": "15/07/2016"
+      "modified": "07/09/2016"
     },
     "xsl/letters/FulItemChangeDueDateLetter.xsl": {
       "checksum": "3a9b448dcbc8603e8b55e11b4635ef2aba166462",
@@ -121,9 +131,9 @@
       "modified": "18/04/2016"
     },
     "xsl/letters/FulLostLoanNotificationLetter.xsl": {
-      "checksum": "cc86937adbd0a3e0bd712019d1b29963408c8bb2",
+      "checksum": "1871287b0d598698b7e6a9d95fabe0746d2e2d6e",
       "default_checksum": "649f6f843acb53e8374c47ae1f1ab13cefe00b2e",
-      "modified": "13/07/2016"
+      "modified": "07/09/2016"
     },
     "xsl/letters/FulLostRefundFeeLoanLetter.xsl": {
       "checksum": "0fd7f5c0ef9aed34bb5a1e8c69ccd5dd12b0b986",
@@ -328,6 +338,11 @@
     "xsl/letters/ResendNotificationLetter.xsl": {
       "checksum": "1683c8761ea4f3035a8e967867b8e387527606a4",
       "default_checksum": "1683c8761ea4f3035a8e967867b8e387527606a4",
+      "modified": "-"
+    },
+    "xsl/letters/ResourceSharingReturnSlipLetter.xsl": {
+      "checksum": "3ce3b65d1f7b6578e6315c71cf85945fa75413c1",
+      "default_checksum": null,
       "modified": "-"
     },
     "xsl/letters/ResourceSharingShippingSlipLetter.xsl": {

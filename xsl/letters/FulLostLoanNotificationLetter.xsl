@@ -108,7 +108,17 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
               <br />
         @@additional_info_2@@
               <br />
-           
+
+              <table>
+
+                <tr>
+                  <td>@@sincerely@@</td>
+                </tr>
+                <tr>
+                  <td>@@department@@</td>
+                </tr>
+
+              </table>
             </table>
             <br />
           </xsl:when>
@@ -194,6 +204,16 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         @@additional_info_2@@
               <br />
 
+              <table>
+
+                <tr>
+                  <td>@@sincerely@@</td>
+                </tr>
+                <tr>
+                  <td>@@department@@</td>
+                </tr>
+
+              </table>
             </table>
             <br />
           </xsl:when>
@@ -280,12 +300,22 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         @@additional_info_2@@
               <br />
 
+              <table>
+
+                <tr>
+                  <td>@@sincerely@@</td>
+                </tr>
+                <tr>
+                  <td>@@department@@</td>
+                </tr>
+
+              </table>
             </table>
             <br />
           </xsl:when>
           
         </xsl:choose> 
-        <xsl:call-template name="email-footer" />
+        <xsl:call-template name="lastFooter" />
         <!-- footer.xsl -->
       </body>
     </html>

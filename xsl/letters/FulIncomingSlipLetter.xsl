@@ -139,7 +139,14 @@
                       </tr>
                     </xsl:if>
 
-                    <xsl:if test="notification_data/incoming_request/display/title != ''">
+                    <xsl:if test="notification_data/metadata/title != ''and notification_data/metadata/material_type != 'Book'">
+                      <tr>
+                        <td align="left">Title:</td>
+                        <td><xsl:value-of select="notification_data/metadata/title"/></td>
+                      </tr>
+                    </xsl:if>
+                    
+                    <xsl:if test="notification_data/incoming_request/display/title != '' and notification_data/metadata/material_type = 'Book'">
                       <tr>
                         <td align="left">Title:</td>
                         <td><xsl:value-of select="notification_data/incoming_request/display/title"/></td>

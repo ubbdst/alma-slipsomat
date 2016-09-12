@@ -20,23 +20,26 @@
    <div class="messageArea">
     <div class="messageBody">
      <table cellspacing="0" cellpadding="5" border="0">
-                <tr>
-                 <td>
-       @@bodyTextBeforeLink@@
-       <a>
-                          <xsl:attribute name="href">
-                            <xsl:value-of select="notification_data/attach_social_account_url" />
-                          </xsl:attribute>
-        @@linkLabel@@
-       </a>
-       @@bodyTextAfterLink@@
-                  </td>
-                </tr>
-                <tr>
-                 <td>
-       @@line2@@
-                  </td>
-                </tr>
+      <tr>
+       <td>
+        @@text1@@
+       </td>
+      </tr>
+      <tr>
+       <td>
+        @@username@@ <xsl:value-of select="notification_data/username" />
+       </td>
+      </tr>
+      <tr>
+       <td>
+        @@password@@ <xsl:value-of select="notification_data/password" />
+       </td>
+      </tr>
+      <tr>
+       <td>
+        @@text2@@
+       </td>
+      </tr>
               </table>
      <table>
       <tr>

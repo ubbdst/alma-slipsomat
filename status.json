@@ -17,7 +17,7 @@
     },
     "xsl/letters/CloudIdPUserCreatedLetter.xsl": {
       "checksum": "75334e9efa4931eed72eb3f445b5c6eb751cc605",
-      "default_checksum": null,
+      "default_checksum": "75334e9efa4931eed72eb3f445b5c6eb751cc605",
       "modified": "-"
     },
     "xsl/letters/CollectionContributionLetter.xsl": {
@@ -42,7 +42,7 @@
     },
     "xsl/letters/EmailRecordsLetter.xsl": {
       "checksum": "44db8f8a8b8155a8ba7a11023572d31aceaae329",
-      "default_checksum": null,
+      "default_checksum": "44db8f8a8b8155a8ba7a11023572d31aceaae329",
       "modified": "-"
     },
     "xsl/letters/ExportUserLetter.xsl": {
@@ -82,7 +82,7 @@
     },
     "xsl/letters/FulCancelRequestLetter.xsl": {
       "checksum": "446f08dc65f19f9203641f3bc6d50589bad2ed5c",
-      "default_checksum": "c530ad5e696f363e83a78a57f14ce10574e13185",
+      "default_checksum": "e0e555b3cb4f6c60a9d3f278a9a9eb144f3343b6",
       "modified": "23/08/2016"
     },
     "xsl/letters/FulCitationSlipLetter.xsl": {
@@ -97,7 +97,7 @@
     },
     "xsl/letters/FulDigitizationDocumentDeliveryNotificationLetter.xsl": {
       "checksum": "81bb6c9e2e53e4dd6649f390d19111e1b0a07bd2",
-      "default_checksum": null,
+      "default_checksum": "81bb6c9e2e53e4dd6649f390d19111e1b0a07bd2",
       "modified": "-"
     },
     "xsl/letters/FulDigitizationNotificationItemLetter.xsl": {
@@ -131,9 +131,9 @@
       "modified": "18/04/2016"
     },
     "xsl/letters/FulLostLoanNotificationLetter.xsl": {
-      "checksum": "1871287b0d598698b7e6a9d95fabe0746d2e2d6e",
+      "checksum": "e8be076e120b86c1a570452c65fc76d1438c4ebb",
       "default_checksum": "649f6f843acb53e8374c47ae1f1ab13cefe00b2e",
-      "modified": "07/09/2016"
+      "modified": "12/09/2016"
     },
     "xsl/letters/FulLostRefundFeeLoanLetter.xsl": {
       "checksum": "0fd7f5c0ef9aed34bb5a1e8c69ccd5dd12b0b986",
@@ -222,7 +222,7 @@
     },
     "xsl/letters/InterestedInLetter.xsl": {
       "checksum": "5e0b8939802618c026adcbe5cd95f6e2e509aad6",
-      "default_checksum": "5e0b8939802618c026adcbe5cd95f6e2e509aad6",
+      "default_checksum": "1ae256a8c7f84f467603f9911cdc1c409371e0f1",
       "modified": "-"
     },
     "xsl/letters/InterestedUsersInLetter.xsl": {
@@ -342,7 +342,7 @@
     },
     "xsl/letters/ResourceSharingReturnSlipLetter.xsl": {
       "checksum": "3ce3b65d1f7b6578e6315c71cf85945fa75413c1",
-      "default_checksum": null,
+      "default_checksum": "3ce3b65d1f7b6578e6315c71cf85945fa75413c1",
       "modified": "-"
     },
     "xsl/letters/ResourceSharingShippingSlipLetter.xsl": {
@@ -357,7 +357,7 @@
     },
     "xsl/letters/SocialLoginInviteLetter.xsl": {
       "checksum": "02967f65bcf8fd0419dba056d3726f277ce3524b",
-      "default_checksum": "02967f65bcf8fd0419dba056d3726f277ce3524b",
+      "default_checksum": "cda8211a139765e789cdd2de2c70b714a05f2b95",
       "modified": "-"
     },
     "xsl/letters/SystemJobLetter.xsl": {
@@ -407,7 +407,7 @@
     },
     "xsl/letters/call_template/smsRecordTitle.xsl": {
       "checksum": "6414dd670441fc3ddfba43ff740b2de8df900c35",
-      "default_checksum": "af1a6166ce6a100b6a20e59ecbf17998bbe22299",
+      "default_checksum": "7b4391a98b09f5570a33b3b88e334208c1f9013e",
       "modified": "03/03/2016"
     },
     "xsl/letters/call_template/style.xsl": {
@@ -447,7 +447,7 @@
     },
     "xsl/letters/sms/SmsFulOverdueAndLostLoanNotificationLetter.xsl": {
       "checksum": "5be478863ddefb31d2342867f99e022b5e5de7f2",
-      "default_checksum": null,
+      "default_checksum": "5be478863ddefb31d2342867f99e022b5e5de7f2",
       "modified": "-"
     },
     "xsl/letters/sms/SmsFulPlaceOnHoldShelfLetter.xsl": {

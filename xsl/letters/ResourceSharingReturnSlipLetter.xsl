@@ -38,6 +38,8 @@
      <!-- style.xsl -->
     </xsl:attribute>
     
+    <xsl:call-template name="head"/>
+    
     <table cellspacing="0" cellpadding="5" border="0" width="100%">
      <tr>
       <td>
@@ -73,6 +75,7 @@
      </tr>
      
      <xsl:if test="/notification_data/request/display/title !=''">
+      <tr><br></br></tr>
       <tr>
        <th align="right"  valign="top">@@title@@:</th>
        <td>
@@ -90,6 +93,7 @@
      </xsl:if>
      
      <tr>
+      <tr><br></br></tr>
       <th align="right" valign="top">
        <xsl:if test="/notification_data/partner_address/country = 'NOR'">Avsender:</xsl:if>
        <xsl:if test="/notification_data/partner_address/country != 'NOR'">Sent from:</xsl:if>
@@ -101,7 +105,7 @@
        <xsl:value-of select="/notification_data/library/email/email"/><br />
       </td>
      </tr>
-     
+     <tr><br></br></tr>
      <tr>
       <th valign="top" align="right" nowrap="nowrap">@@returned_to@@:</th>
       <td>
@@ -137,6 +141,15 @@
      </xsl:if>
      
     </table>
+    
+    <br> </br>
+    <br> </br>
+    <br> </br>
+    <br> </br>
+    <br> </br>
+    <br> </br>
+    <br> </br>
+    <br> </br>
     
     <!-- =====================================================================================
           Libnummer

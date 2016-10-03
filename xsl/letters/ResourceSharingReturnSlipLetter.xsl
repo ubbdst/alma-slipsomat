@@ -75,7 +75,6 @@
      </tr>
      
      <xsl:if test="/notification_data/request/display/title !=''">
-      <tr><br></br></tr>
       <tr>
        <th align="right"  valign="top">@@title@@:</th>
        <td>
@@ -93,7 +92,6 @@
      </xsl:if>
      
      <tr>
-      <tr><br></br></tr>
       <th align="right" valign="top">
        <xsl:if test="/notification_data/partner_address/country = 'NOR'">Avsender:</xsl:if>
        <xsl:if test="/notification_data/partner_address/country != 'NOR'">Sent from:</xsl:if>
@@ -105,7 +103,6 @@
        <xsl:value-of select="/notification_data/library/email/email"/><br />
       </td>
      </tr>
-     <tr><br></br></tr>
      <tr>
       <th valign="top" align="right" nowrap="nowrap">@@returned_to@@:</th>
       <td>
@@ -142,6 +139,8 @@
      
     </table>
     
+    <br> </br>
+    <br> </br>
     <br> </br>
     <br> </br>
     <br> </br>

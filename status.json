@@ -341,9 +341,9 @@
       "modified": "-"
     },
     "xsl/letters/ResourceSharingReturnSlipLetter.xsl": {
-      "checksum": "74ae3342146e0947ca8be6753c2e5026ea381b63",
+      "checksum": "b0f7f70fcc93e5db689580c2a68064efcebf49d5",
       "default_checksum": "3ce3b65d1f7b6578e6315c71cf85945fa75413c1",
-      "modified": "23/09/2016"
+      "modified": "29/09/2016"
     },
     "xsl/letters/ResourceSharingShippingSlipLetter.xsl": {
       "checksum": "f43864a2d937c40a2d7e331ecc3413e7c025783f",
